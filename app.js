@@ -23,6 +23,7 @@ const   indexRoutes                 = require("./routes/index"),
         campgroundRoutes            = require("./routes/campgrounds");
 
 // BASE CONFIGURATION
+seedDB();
 dotenv.config();
 app.set("view engine", "ejs");
 app.use(expressSanitizer());

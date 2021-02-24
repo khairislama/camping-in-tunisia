@@ -16,7 +16,9 @@ const campgroundSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
-        username: String
-    }
+        firstname: String,
+        lastname: String
+    },
+    created: {type: Date, default: Date.now}
 });
 module.exports = mongoose.model("campground", campgroundSchema);

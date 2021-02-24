@@ -50,15 +50,17 @@ function seedDB(){
                             if(err){
                                 console.log(err);
                             }else{
-                                User.findOne({username: "khairislama"}, (err, user)=>{
+                                User.findOne({username: "khairi.slama@polytechnicien.tn"}, (err, user)=>{
                                     if(err){
                                         console.error(err);
                                     }else{
                                         comment.author.id = user._id;
-                                        comment.author.username = user.username;
+                                        comment.author.firstname = user.firstname;
+                                        comment.author.lastname = user.lastname;
                                         comment.save();
                                         campground.author.id = user._id;
-                                        campground.author.username = user.username;  
+                                        campground.author.firstname = user.firstname;  
+                                        campground.author.lastname = user.lastname;  
                                         campground.comments.push(comment);
                                         campground.save();
                                         console.log("comment added successfully");                                      

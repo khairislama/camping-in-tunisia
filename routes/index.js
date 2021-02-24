@@ -20,15 +20,15 @@ router.post("/register", (req, res)=>{
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
-            //req.flash("error", err.message);
+            req.flash("error", err.message);
             return res.render("register");
         }
-        passport.authenticate("local")(req, res, ()=>{
-            //req.flash("success", `Welcome to Tunisia-camping ${user.email}`);
+        passport.authenticate("local")(req, res, ()=>{            
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
             user.save();
-            res.redirect("/");
+            req.flash("success", `Welcome to Tunisia-camping ${user.firstname}`);
+            res.redirect("/campgrounds");
         });
     });
 });
@@ -40,15 +40,15 @@ router.get("/login", (req,res)=>{
 
 //handling login logic
 router.post("/login",passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/campgrounds",
     failureRedirect: "/login"
 }));
 
 //logout logic
 router.get("/logout", (req, res)=>{
     req.logout();
-    //req.flash("success", "logged you out!");
-    res.redirect("/");
+    req.flash("success", "logged you out!");
+    res.redirect("/campgrounds");
 });
 
 

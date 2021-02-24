@@ -30,7 +30,8 @@ router.post("/", middleware.isLoggedIn, (req, res)=>{
                 }else{
                     //add user to comment
                     comment.author.id = req.user._id;
-                    comment.author.username = req.user.username;
+                    comment.author.firstname = req.user.firstname;
+                    comment.author.lastname = req.user.lastname;
                     //save comment
                     comment.save();
                     campground.comments.push(comment);

@@ -10,3 +10,6 @@
 .delete-form{
     display: inline;
 }
+#campgrounds-image{
+    height: 15em;
+}
