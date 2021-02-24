@@ -25,6 +25,9 @@ router.post("/register", (req, res)=>{
         }
         passport.authenticate("local")(req, res, ()=>{
             //req.flash("success", `Welcome to Tunisia-camping ${user.email}`);
+            user.firstname = req.body.firstname;
+            user.lastname = req.body.lastname;
+            user.save();
             res.redirect("/");
         });
     });
@@ -45,7 +48,7 @@ router.post("/login",passport.authenticate("local", {
 router.get("/logout", (req, res)=>{
     req.logout();
     //req.flash("success", "logged you out!");
-    res.redirect("/campgrounds");
+    res.redirect("/");
 });
 
 
