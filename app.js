@@ -9,14 +9,18 @@ const   express                     = require("express"),
         expressSanitizer            = require("express-sanitizer"),
         passport                    = require("passport"),
         localStrategy               = require("passport-local"),
-        passportLocalMongoose       = require("passport-local-mongoose"),
         app                         = express();
 
+const   seedDB                      = require("./seeds");
 // MODELS IMPORTATION
-const   User                        = require("./models/user");
+const   User                        = require("./models/user"),
+        Comment                     = require("./models/comment"),
+        Campground                  = require("./models/campground");
 
 // ROUTES IMPORTATION
-const   indexRoutes                 = require("./routes/index");
+const   indexRoutes                 = require("./routes/index"),
+        commentRoutes               = require("./routes/comments"),
+        campgroundRoutes            = require("./routes/campgrounds");
 
 // BASE CONFIGURATION
 dotenv.config();
@@ -45,13 +49,17 @@ passport.deserializeUser(User.deserializeUser());
 // GENERAL MIDDLEWARES
 app.use((req, res, next)=>{
     res.locals.currentUser  = req.user;
+    res.locals.error        = req.flash("error");
+    res.locals.success      = req.flash("success");
     next();
 });
 
 // CALLING ROUTES
 app.use(indexRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/campgrounds", campgroundRoutes);
 
 // SERVER STARTER
-app.listen(process.env.PORT_APP, ()=>{
-    console.log(`Server started and listening on port ${process.env.PORT_APP}`);
+app.listen(process.env.APP_PORT, ()=>{
+    console.log(`Server started and listening on port ${process.env.APP_PORT}`);
 });
