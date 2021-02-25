@@ -38,7 +38,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <strong><%= comment.author.firstname %> <%= comment.author.lastname %></strong>
-                            <span class="float-right">10 days ago</span>
+                            <span class="float-right comment-time">
+                                <script>
+                                    var time = '<%= comment.created.getTime() %>';
+                                    console.log("1");
+                                    timeSince(time);
+                                </script>
+                            </span>
                             <p><%= comment.text %></p>
                             <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
                                 <a class="btn btn-xs btn-sm btn-warning" 
@@ -55,8 +61,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 <%- include("../partials/footer"); -%>
