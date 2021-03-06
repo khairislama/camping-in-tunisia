@@ -17,31 +17,39 @@
     <title>Welcome to Tunisia-Camping</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">Tunisia-camping</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/campgrounds">campgrounds <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <ul class="navbar-nav navbar-right">
-          <% if(!currentUser){ %>
-            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
-            <li class="nav-item"><a class="nav-link" href="/register">Sign up</a></li>
-          <% }else{ %>
-            <li class="nav-item"><a class="nav-link" href="#">Signed In as <%= currentUser.firstname %> </a></li>
-            <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
-          <% } %>
-        </ul>
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active mr-3">
+              <a class="nav-link" href="/campgrounds">Campgrounds <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active mr-3">
+              <a class="nav-link" href="/campgrounds">Community</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/campgrounds">Shop</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav navbar-right ml-5">
+            <% if(!currentUser){ %>
+              <li class="nav-item ml-5"><a class="nav-link" href="/login">login</a></li>
+              <li class="nav-item ml-4"><a class="nav-link" href="/register">Sign up</a></li>
+            <% }else{ %>
+              <li class="nav-item ml-5"><a class="nav-link" href="#">Signed In as <%= currentUser.firstname %> </a></li>
+              <li class="nav-item ml-4"><a class="nav-link" href="/logout">logout</a></li>
+            <% } %>
+          </ul>
+        </div>
       </div>
     </nav>
 
