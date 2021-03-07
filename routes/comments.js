@@ -25,8 +25,7 @@ router.post("/", middleware.isLoggedIn, (req, res)=>{
         }else{
             Comment.create(req.body.comment, (err, comment)=>{
                 if (err){
-                    req.flash("error", "Oops! There is a Database problem!");
-                    res.redirect("back");
+                    res.render("dbProblem");
                 }else{
                     //add user to comment
                     comment.author.id = req.user._id;
@@ -36,7 +35,7 @@ router.post("/", middleware.isLoggedIn, (req, res)=>{
                     comment.save();
                     campground.comments.push(comment);
                     campground.save();
-                    req.flash("success", "Comment added successfully");
+                    req.flash("success", "Comment added successfully!");
                     res.redirect(`/campgrounds/${campground._id}`);
                 }
             });

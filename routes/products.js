@@ -6,7 +6,7 @@ const   express             = require("express"),
 router.get("/", (req, res)=>{
     Product.find({}, (err, products)=>{
         if(err){
-            console.log(err);
+            res.render("dbProblem");
         }else{
             res.render("products/index", {products: products});
         }        
@@ -20,26 +20,34 @@ router.get("/new",middleware.isLoggedIn , (req, res)=>{
 router.post("/",middleware.isLoggedIn, (req, res)=>{
     Product.create(req.body.product, (err, product)=>{
         if(err){
-            req.flash("error", "Oops! There is a Database problem!");
-            res.redirect("/products");
+            res.render("dbProblem");
         }else{
             product.author = {
                 id: req.user._id,
                 firstname: req.user.firstname,
                 lastname: req.user.lastname
             };
+            if(req.body.rent === "on"){
+                product.sell = false;
+            }else{
+                product.sell = true;
+            }
+            if(req.body.state === "on"){
+                product.state = true;
+            }else{
+                product.state = false;
+            }
             product.save();
-            req.flash("success", "Products added successfully");
+            req.flash("success", "Product added successfully!");
             res.redirect("/products");
         }
     });
 });
 
 router.get("/:id", (req, res)=>{
-    Product.findById(req.params.id).populate("comments").exec((err, foundProduct)=>{
+    Product.findById(req.params.id, (err, foundProduct)=>{
         if(err){
-            req.flash("error", "Oops! There is a Database problem!");
-            res.redirect("/products");
+            res.render("dbProblem");
         }else{
             res.render("products/show", {product: foundProduct});
         }
@@ -49,8 +57,7 @@ router.get("/:id", (req, res)=>{
 router.get("/:id/edit",middleware.checkProductOwnership, (req, res)=>{
     Product.findById(req.params.id, (err, product)=>{
         if(err){
-            req.flash("error", "Product not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
             res.render("products/edit", {product: product});
         }        
@@ -60,10 +67,20 @@ router.get("/:id/edit",middleware.checkProductOwnership, (req, res)=>{
 router.put("/:id",middleware.checkProductOwnership, (req, res)=>{
     Product.findByIdAndUpdate(req.params.id, req.body.product, (err, product)=>{
         if (err){
-            req.flash("error", "Product not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
-            req.flash("success", "Product updated successfully");
+            if(req.body.rent === "on"){
+                product.sell = false;
+            }else{
+                product.sell = true;
+            }
+            if(req.body.state === "on"){
+                product.state = true;
+            }else{
+                product.state = false;
+            }
+            product.save();
+            req.flash("success", "Product updated successfully!");
             res.redirect(`/products/${req.params.id}`);
         }
     });
@@ -72,10 +89,9 @@ router.put("/:id",middleware.checkProductOwnership, (req, res)=>{
 router.delete("/:id",middleware.checkProductOwnership, (req, res)=>{
     Product.findByIdAndRemove(req.params.id, (err)=>{
         if(err){
-            req.flash("error", "Product not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
-            req.flash("success", "Product Deleted successfully");
+            req.flash("success", "Product Deleted successfully!");
             res.redirect("/products");
         }
     });

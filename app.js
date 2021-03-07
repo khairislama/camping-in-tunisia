@@ -62,6 +62,10 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/products", shopRoutes);
 
+app.get("*", (req, res)=>{
+    res.render("routeNotFound");
+});
+
 // SERVER STARTER
 app.listen(process.env.APP_PORT, ()=>{
     console.log(`Server started and listening on port ${process.env.APP_PORT}`);

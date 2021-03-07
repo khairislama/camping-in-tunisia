@@ -6,12 +6,9 @@ const productSchema = new mongoose.Schema({
     image: String,
     location: String,
     price: String,
-    comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
-    ],
+    rating: {type: String, default: "0"},
+    sell: Boolean,
+    state: Boolean,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

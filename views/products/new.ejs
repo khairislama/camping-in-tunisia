@@ -21,7 +21,15 @@
                     <div class="form-group">
                         <input class="form-control" type="number" placeholder="price" name="product[price]" min="0.01" step="0.01">
                     </div>
-                    <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="newItemCheckbox" name="state">
+                        <label class="custom-control-label" for="newItemCheckbox"> New product</label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="rentItemCheckbox" name="rent">
+                        <label class="custom-control-label checked" for="rentItemCheckbox"> Rent product</label>
+                    </div>              
+                    <div class="form-group mt-3">
                         <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                     </div>
                 </form>

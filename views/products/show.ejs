@@ -21,42 +21,14 @@
                         Submitted by <%= product.author.firstname %> <%= product.author.lastname %>
                         <br><span class="text-muted">Created at: <%= product.created.toDateString() %></span>
                     </p>
+                    <p> new : <%= product.state %>  - vente: <%= product.sell %> </p>
                     <% if(currentUser && product.author.id.equals(currentUser._id)){ %>
-                        <a href="/product/<%= product._id %>/edit" class="btn btn-warning">Edit</a>
-                        <form class="delete-form" action="/campgrounds/<%= product._id %>?_method=DELETE" method="POST">
+                        <a href="/products/<%= product._id %>/edit" class="btn btn-warning">Edit</a>
+                        <form class="delete-form" action="/products/<%= product._id %>?_method=DELETE" method="POST">
                             <button class="btn btn-danger">Delete</button>
                         </form>
                     <% } %>
                 </div>
-            </div>
-            <div class="card card-body bg-light mt-2">
-                <div class="text-right">
-                    <a href="/product/<%= product._id %>/comments/new" class="btn btn-success">Add new comment</a>                    
-                </div>
-                <hr>
-                <% product.comments.forEach((comment)=>{ %>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <strong><%= comment.author.firstname %> <%= comment.author.lastname %></strong>
-                            <span class="float-right comment-time">
-                                <script>
-                                    var time = '<%= comment.created.getTime() %>';
-                                    console.log("1");
-                                    timeSince(time);
-                                </script>
-                            </span>
-                            <p><%= comment.text %></p>
-                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                                <a class="btn btn-xs btn-sm btn-warning" 
-                                href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                                <form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" 
-                                    method="POST" class="delete-form">
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>                    
-                <% }) %>
             </div>
         </div>
     </div>

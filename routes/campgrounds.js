@@ -7,7 +7,7 @@ const   express         = require("express"),
 router.get("/", (req, res)=>{
     Campground.find({}, (err, allCampgrounds)=>{
         if(err){
-            console.log(err);
+            res.render("dbProblem");
         }else{
             res.render("campgrounds/index", {campgrounds: allCampgrounds});
         }
@@ -33,10 +33,9 @@ router.post("/",middleware.isLoggedIn, (req, res)=>{
     var newCampground = {name : name,price: price, image: image, description: description, author: author};
     Campground.create(newCampground, (err, newCampground)=>{
         if(err){
-            req.flash("error", "Oops! There is a Database problem!");
-            res.redirect("/campgrounds");
+            res.render("dbProblem");
         }else{
-            req.flash("success", "Campground added successfully");
+            req.flash("success", "Campground added successfully!");
             res.redirect("/campgrounds");
         }
     });
@@ -46,8 +45,7 @@ router.post("/",middleware.isLoggedIn, (req, res)=>{
 router.get("/:id", (req, res)=>{
     Campground.findById(req.params.id).populate("comments").exec((err, foundCampground)=>{
         if(err){
-            req.flash("error", "Oops! There is a Database problem!");
-            res.redirect("/products");
+            res.render("dbProblem");
         }else{
             res.render("campgrounds/show", {campground: foundCampground});
         }
@@ -58,8 +56,7 @@ router.get("/:id", (req, res)=>{
 router.get("/:id/edit",middleware.checkCampgroundOwnership, (req, res)=>{    
     Campground.findById(req.params.id, (err, campground)=>{
         if(err){
-            req.flash("error", "Campground not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
             res.render("campgrounds/edit", {campground: campground});
         }        
@@ -70,10 +67,9 @@ router.get("/:id/edit",middleware.checkCampgroundOwnership, (req, res)=>{
 router.put("/:id",middleware.checkCampgroundOwnership, (req, res)=>{
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, campground)=>{
         if (err){
-            req.flash("error", "Campground not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
-            req.flash("success", "Campground updated successfully");
+            req.flash("success", "Campground updated successfully!");
             res.redirect(`/campgrounds/${req.params.id}`);
         }
     });
@@ -83,10 +79,9 @@ router.put("/:id",middleware.checkCampgroundOwnership, (req, res)=>{
 router.delete("/:id",middleware.checkCampgroundOwnership, (req, res)=>{
     Campground.findByIdAndRemove(req.params.id, (err)=>{
         if(err){
-            req.flash("error", "Campground not found");
-            res.redirect("back");
+            res.render("dbProblem");
         }else{
-            req.flash("success", "Campground Deleted successfully");
+            req.flash("success", "Campground Deleted successfully!");
             res.redirect("/campgrounds");
         }
     });
