@@ -27,13 +27,14 @@ router.post("/",middleware.isLoggedIn, (req, res)=>{
     let price = req.body.price;
     let author = {
         id: req.user._id,
-        username: req.user.username
+        firstname: req.user.firstname,
+        lastname: req.user.lastname
     }
     var newCampground = {name : name,price: price, image: image, description: description, author: author};
     Campground.create(newCampground, (err, newCampground)=>{
         if(err){
             req.flash("error", "Oops! There is a Database problem!");
-            res.redirect("back");
+            res.redirect("/campgrounds");
         }else{
             req.flash("success", "Campground added successfully");
             res.redirect("/campgrounds");
@@ -45,7 +46,8 @@ router.post("/",middleware.isLoggedIn, (req, res)=>{
 router.get("/:id", (req, res)=>{
     Campground.findById(req.params.id).populate("comments").exec((err, foundCampground)=>{
         if(err){
-            console.log(err);
+            req.flash("error", "Oops! There is a Database problem!");
+            res.redirect("/products");
         }else{
             res.render("campgrounds/show", {campground: foundCampground});
         }

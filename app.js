@@ -20,7 +20,8 @@ const   User                        = require("./models/user"),
 // ROUTES IMPORTATION
 const   indexRoutes                 = require("./routes/index"),
         commentRoutes               = require("./routes/comments"),
-        campgroundRoutes            = require("./routes/campgrounds");
+        campgroundRoutes            = require("./routes/campgrounds"),
+        shopRoutes                  = require("./routes/products");
 
 // BASE CONFIGURATION
 seedDB();
@@ -59,6 +60,7 @@ app.use((req, res, next)=>{
 app.use(indexRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
+app.use("/products", shopRoutes);
 
 // SERVER STARTER
 app.listen(process.env.APP_PORT, ()=>{

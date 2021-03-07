@@ -1,4 +1,5 @@
 const   Campground          = require("../models/campground"),
+        Product             = require("../models/product"),
         Comment             = require("../models/comment");
 var middlewareObj = {};
 
@@ -47,6 +48,27 @@ middlewareObj.checkCampgroundOwnership = function(req, res, next){
                 }
             }
         });  
+    }else{
+        req.flash("error", "you need to be logged in to do that!");
+        res.redirect("/login");
+    }
+}
+
+middlewareObj.checkProductOwnership = function(req, res, next){
+    if(req.isAuthenticated()){
+        Product.findById(req.params.id, (err, product)=>{
+            if(err){
+                req.flash("error", "Product not found");
+                res.redirect("back");
+            }else{
+                if(product.author.id.equals(req.user._id)){
+                    next();
+                }else{
+                    req.flash("error", "You don\t have permission to do that");
+                    res.redirect(`/products/${req.params.id}`);
+                }
+            }
+        });
     }else{
         req.flash("error", "you need to be logged in to do that!");
         res.redirect("/login");
