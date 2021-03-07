@@ -13,6 +13,7 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
 
     <!-- Custom JS -->
     <script src="/scripts/campground.js"></script>
@@ -56,7 +57,7 @@
                     <%= currentUser.lastname.toUpperCase() %> 
                   </a>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/users/<%= currentUser._id %> ">Profile</a>
+                    <a class="dropdown-item" href="/users/<%= currentUser._id %>">Profile</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="/logout">logout</a>
                   </div>
