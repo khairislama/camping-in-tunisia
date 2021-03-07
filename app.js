@@ -34,6 +34,7 @@ app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // DATABASE CONNEXION
+const   APP_PORT = process.env.APP_PORT || 3000;
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // PASSPORT CONFIGURATION
@@ -67,6 +68,6 @@ app.get("*", (req, res)=>{
 });
 
 // SERVER STARTER
-app.listen(process.env.APP_PORT, ()=>{
-    console.log(`Server started and listening on port ${process.env.APP_PORT}`);
+app.listen(APP_PORT, ()=>{
+    console.log(`Server started and listening on port ${APP_PORT}`);
 });

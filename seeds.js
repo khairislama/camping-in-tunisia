@@ -1,6 +1,7 @@
 const   mongoose    = require("mongoose"),
         Campground  = require("./models/campground"),
         Comment     = require("./models/comment"),
+        Produit     = require("./models/product"),
         User        = require("./models/user");
 
 const data = [
@@ -73,6 +74,8 @@ function seedDB(){
             });
         }
     });
+    //Produit.remove({});
+    //User.remove({})
 }
 
 module.exports = seedDB;
