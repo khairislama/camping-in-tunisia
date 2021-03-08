@@ -14,38 +14,25 @@
                                 <%= user.firstname %> <%= user.lastname.toUpperCase() %> 
                             </h5>
                             <h6>
-                                <%= user.bio %> 
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">BIO</span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                                  </div>
+                                  <input type="text" value="<%= user.bio %>">
                             </h6>
                             <p class="proile-rating">RATING : <span><%= user.rating %> /5 <i class="fas fa-star"></i></span> ( <%= user.nratings %> users )</p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                         </li>
-                        <li class="nav-item"> 
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                        </li>
-                        <li class="nav-item"> 
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false"><%= user.followers.length %>  followers</a>
-                        </li>
-                        <li class="nav-item"> 
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#following" role="tab" aria-controls="following" aria-selected="false"><%= user.following.length %>  following</a>
-                        </li>
                     </ul>
                 </div>
+            </div>            
+            <div class="col-md-2">
+                <a class="border profile-edit-btn" href="/users/<%= user._id %>/edit"><i class="fas fa-save mr-2"></i> Save</a>
             </div>
-            <% if (currentUser && currentUser._id.equals(user._id)){ %> 
-                <div class="col-md-2">
-                    <a class="border profile-edit-btn" href="/users/<%= user._id %>/edit"><i class="fas fa-edit mr-2"></i> Edit Profile</a>
-                </div>
-            <% }else{ %> 
-                <div class="col-md-1">
-                    <button class="btn btn-primary">follow</button>
-                    <button class="btn btn-warning">message</button>
-                </div>
-                <div class="col-md-1">
-
-                </div>
-            <% } %> 
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -83,10 +70,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Last activity</label>
+                                        <label>from</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>To complete later</p>
+                                        <p><%= user.from %> </p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -105,15 +92,6 @@
                                         <p><%= user.profession %> </p>
                                     </div>
                                 </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <p>timeline tab</p>
-                    </div>
-                    <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                        <p>followers tab</p>
-                    </div>
-                    <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                        <p>following tab</p>
                     </div>
                 </div>
             </div>

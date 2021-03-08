@@ -75,4 +75,18 @@ middlewareObj.checkProductOwnership = function(req, res, next){
     }
 }
 
+middlewareObj.checkIfCurrentUser = function(req, res, next){
+    if (req.isAuthenticated()){
+        if (req.params.id == req.user._id){
+            next();
+        }else{
+            req.flash("error", "You don\t have permission to do that");
+            res.redirect(`/users/${req.params.id}`);
+        }
+    }else{
+        req.flash("error", "you need to be logged in to do that!");
+        res.redirect("/login");
+    }
+}
+
 module.exports = middlewareObj;
