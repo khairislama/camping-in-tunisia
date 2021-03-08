@@ -25,4 +25,8 @@ router.get("/edit", middleware.checkIfCurrentUser, (req, res)=>{
     });
 });
 
+router.put("/",middleware.checkIfCurrentUser, (req, res)=>{
+    
+});
+
 module.exports = router;

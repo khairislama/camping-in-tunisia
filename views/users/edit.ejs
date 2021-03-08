@@ -6,23 +6,26 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="<%= user.userImage %>" alt="user image"/>
+                    <div class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" name="file"/>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
-                            <h5>
-                                <%= user.firstname %> <%= user.lastname.toUpperCase() %> 
-                            </h5>
-                            <h6>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">BIO</span>
-                                    </div>
-                                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                                  </div>
-                                  <input type="text" value="<%= user.bio %>">
-                            </h6>
-                            <p class="proile-rating">RATING : <span><%= user.rating %> /5 <i class="fas fa-star"></i></span> ( <%= user.nratings %> users )</p>
+                    <h5>
+                        <%= user.firstname %> <%= user.lastname.toUpperCase() %> 
+                    </h5>
+                    <h6>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">My bio</span>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea"><%= user.bio %> </textarea>
+                        </div>
+                    </h6>
+                    <p class="proile-rating">RATING : <span><%= user.rating %> /5 <i class="fas fa-star"></i></span> ( <%= user.nratings %> users )</p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -52,46 +55,72 @@
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Name</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="user-firstname">first name</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p><%= user.firstname %> <%= user.lastname.toUpperCase() %> </p>
-                                    </div>
+                                    <input type="text" class="form-control" value="<%= user.firstname %> " aria-label="firstname" aria-describedby="user-firstname">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="user-lastname">first name</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p><%= user.username %> </p>
-                                    </div>
+                                    <input type="text" class="form-control" value="<%= user.lastname %> " aria-label="lastname" aria-describedby="user-lastname">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>from</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><%= user.from %> </p>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-email">Email</span>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Phone</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><%= user.phoneNumber %> </p>
-                                    </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.username %> " aria-label="email" aria-describedby="user-email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-from">From</span>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Profession</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><%= user.profession %> </p>
-                                    </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.from %> " aria-label="from" aria-describedby="user-from">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-adresse">Adresse</span>
                                 </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.adresse %> " aria-label="adresse" aria-describedby="user-adresse">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-situation">Situation</span>
+                                </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.situation %> " aria-label="situation" aria-describedby="user-situation">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-phone">Phone</span>
+                                </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.phoneNumber %> " aria-label="phone" aria-describedby="user-phone">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend col-md-6">
+                                    <span class="input-group-text" id="user-profession">Profession</span>
+                                </div>
+                                <input type="text" class="form-control col-md-6" value="<%= user.profession %> " aria-label="profession" aria-describedby="user-profession">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
