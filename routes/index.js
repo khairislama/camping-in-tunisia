@@ -2,7 +2,32 @@
 const   express             = require("express"),
         router              = express.Router(),
         passport            = require("passport"),
+        multer              = require("multer"),             
         User                = require("../models/user");
+
+const   storage             = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, './public/images/users/');
+    },
+    filename: (req, file, cb)=>{
+        cb(null,new Date().toISOString() + file.originalname);
+    }
+});
+const   fileFilter          = (req, file, cb)=>{
+    if (file.minetype === 'image/jpeg' || file.minetype === 'image/png'){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+};
+
+const   upload              = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
+});
 
 // root route
 router.get("/", (req, res)=>{
@@ -16,7 +41,7 @@ router.get("/register", (req, res)=>{
 });
 
 //handling sign up logic
-router.post("/register", (req, res)=>{
+router.post("/register", upload.single('userImage'), (req, res)=>{
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
