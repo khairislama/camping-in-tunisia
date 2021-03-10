@@ -22,7 +22,8 @@ const   indexRoutes                 = require("./routes/index"),
         commentRoutes               = require("./routes/comments"),
         campgroundRoutes            = require("./routes/campgrounds"),
         shopRoutes                  = require("./routes/products"),
-        userRoutes                  = require("./routes/users");
+        userRoutes                  = require("./routes/users"),
+        blogRoutes                  = require("./routes/blogs");
 
 // BASE CONFIGURATION
 //seedDB();
@@ -64,6 +65,7 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/products", shopRoutes);
 app.use("/users/:id", userRoutes);
+app.use("/blogs", blogRoutes);
 
 app.get("*", (req, res)=>{
     res.render("routeNotFound");

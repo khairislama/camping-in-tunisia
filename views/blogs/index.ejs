@@ -1,0 +1,9 @@
+<h1>index page</h1>
+
+
+<% blogs.forEach((blog)=>{ %>
+    <a href="/blogs/<%= blog._id %>"> <%= blog.titre %> </a>
+    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+        <input type="submit" value="submit">
+    </form>
+<% }) %> 

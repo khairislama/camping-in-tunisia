@@ -4,29 +4,6 @@ const   express             = require("express"),
         passport            = require("passport"),
         User                = require("../models/user");
 
-/*const   storage             = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, 'public/images/users/');
-    },
-    filename: function(req, file, cb){
-        cb(null, file.fieldname + "-" + Date.now());
-    }
-});
-const   fileFilter          = (req, file, cb)=>{
-    if (file.minetype === 'image/jpeg' || file.minetype === 'image/png'){
-        cb(null, true);
-    }else{
-        cb(null, false);
-    }
-};
-const   upload              = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    },
-    fileFilter: fileFilter
-});*/
-
 // root route
 router.get("/", (req, res)=>{
     res.render("landing");
