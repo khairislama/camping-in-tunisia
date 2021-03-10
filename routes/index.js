@@ -2,15 +2,14 @@
 const   express             = require("express"),
         router              = express.Router(),
         passport            = require("passport"),
-        multer              = require("multer"),             
         User                = require("../models/user");
 
-const   storage             = multer.diskStorage({
-    destination: (req, file, cb)=>{
-        cb(null, './public/images/users/');
+/*const   storage             = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, 'public/images/users/');
     },
-    filename: (req, file, cb)=>{
-        cb(null,new Date().toISOString() + file.originalname);
+    filename: function(req, file, cb){
+        cb(null, file.fieldname + "-" + Date.now());
     }
 });
 const   fileFilter          = (req, file, cb)=>{
@@ -20,14 +19,13 @@ const   fileFilter          = (req, file, cb)=>{
         cb(null, false);
     }
 };
-
 const   upload              = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5
     },
     fileFilter: fileFilter
-});
+});*/
 
 // root route
 router.get("/", (req, res)=>{
@@ -41,16 +39,16 @@ router.get("/register", (req, res)=>{
 });
 
 //handling sign up logic
-router.post("/register", upload.single('userImage'), (req, res)=>{
+router.post("/register", (req, res)=>{
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
             req.flash("error", err.message);
             return res.redirect("/register");
-        }
-        passport.authenticate("local")(req, res, ()=>{            
-            user.firstname = req.body.firstname;
-            user.lastname = req.body.lastname;
+        }        
+        passport.authenticate("local")(req, res, ()=>{
+            user.firstname  = req.body.firstname;
+            user.lastname   = req.body.lastname;
             user.save();
             req.flash("success", `Welcome to Tunisia-camping ${user.firstname}`);
             res.redirect("/campgrounds");
@@ -73,7 +71,7 @@ router.post("/login",passport.authenticate("local", {
 router.get("/logout", (req, res)=>{
     req.logout();
     req.flash("success", "logged you out!");
-    res.redirect("/campgrounds");
+    res.redirect("/");
 });
 
 

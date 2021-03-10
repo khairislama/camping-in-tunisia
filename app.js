@@ -25,7 +25,7 @@ const   indexRoutes                 = require("./routes/index"),
         userRoutes                  = require("./routes/users");
 
 // BASE CONFIGURATION
-seedDB();
+//seedDB();
 dotenv.config();
 app.set("view engine", "ejs");
 app.use(expressSanitizer());

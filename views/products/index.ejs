@@ -22,8 +22,16 @@
         <% products.forEach((product)=>{ %>
             <div class="col-md-3 col-sm-6">
                 <img id="campgrounds-image" class="img-thumbnail img-fluid" src="<%= product.image %>" alt="a ground image">
+                <% if(product.state){ %> 
+                    <img src="icons/new-product.png" style="position: absolute; top: 8px; right: 30px">
+                <% } %> 
+                <% if (product.sell){ %> 
+                    <img src="icons/selling.png" style="position: absolute; top: 8px; left: 30px">
+                <% }else{ %> 
+                    <img src="icons/rent.png" style="position: absolute; top: 8px; left: 30px">
+                <% } %> 
                 <div class="caption">
-                    <h4><%= product.name %></h4>
+                    <h4><%= product.name.substring(0, 16) %>...</h4>
                 </div>
                 <p>
                     <a href="/products/<%= product._id %>" class="btn btn-primary">More info</a>
