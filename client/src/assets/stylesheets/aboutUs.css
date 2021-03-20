@@ -1,0 +1,55 @@
+.aboutUsColumn {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+.aboutUsCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+}
+
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+}
+
+.aboutUsContainer {
+    padding: 0 16px;
+}
+
+.aboutUsContainer::after, .aboutUsRow::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.aboutUsTitle {
+    color: grey;
+}
+
+.aboutUsButton {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.aboutUsButton:hover {
+    background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+    .aboutUsColumn {
+        width: 100%;
+        display: block;
+    }
+}

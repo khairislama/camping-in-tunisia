@@ -1,4 +1,4 @@
-const CAMPGROUND        = require("../models/campground");
+const CAMPGROUND        = require("../models/campground.model");
 
 module.exports.findAllCampgrounds = async (req, res) => {
     try {
@@ -22,12 +22,12 @@ module.exports.findOneCampground = async (req, res) => {
             success: true,
             campground: campground
         })
-        }catch(err) {
-            return res.status(400).json({
-                success: false,
-                error : err
-            })
-        }
+    }catch(err) {
+        return res.status(400).json({
+            success: false,
+            error : err
+        })
+    }
 }
 
 module.exports.createCampground = async (req, res) => {
