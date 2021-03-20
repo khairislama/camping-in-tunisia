@@ -18,15 +18,15 @@ const   User                        = require("./models/user"),
         Campground                  = require("./models/campground");
 
 // ROUTES IMPORTATION
-const   indexRoutes                 = require("./routes/index"),
-        commentRoutes               = require("./routes/comments"),
-        campgroundRoutes            = require("./routes/campgrounds"),
-        shopRoutes                  = require("./routes/products"),
-        userRoutes                  = require("./routes/users"),
-        blogRoutes                  = require("./routes/blogs");
+const   indexRoutes                 = require("./routes/index.routes"),
+        commentRoutes               = require("./routes/comments.routes"),
+        campgroundRoutes            = require("./routes/campgrounds.routes"),
+        shopRoutes                  = require("./routes/products.routes"),
+        userRoutes                  = require("./routes/users.routes"),
+        blogRoutes                  = require("./routes/blogs.routes");
 
 // BASE CONFIGURATION
-//seedDB();
+seedDB();
 dotenv.config();
 app.set("view engine", "ejs");
 app.use(expressSanitizer());
@@ -36,7 +36,7 @@ app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // DATABASE CONNEXION
-const   APP_PORT = process.env.APP_PORT || 3000;
+const   APP_PORT = process.env.APP_PORT || 3001;
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 
 // PASSPORT CONFIGURATION
