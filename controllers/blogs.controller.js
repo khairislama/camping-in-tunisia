@@ -2,7 +2,7 @@ const BLOG      = require("../models/blog");
 
 module.exports.findAllBlogs = async (req, res) => {
     try {
-        const Blogs = await BLOG.find();
+        const blogs = await BLOG.find();
         return res.status(200).json({
             success: true,
             blogs: blogs
