@@ -1,4 +1,4 @@
-const BLOG      = require("../models/blog");
+const BLOG      = require("../models/blog.model");
 
 module.exports.findAllBlogs = async (req, res) => {
     try {
@@ -15,9 +15,9 @@ module.exports.findAllBlogs = async (req, res) => {
     }
 }
 
-module.exports.findOneBlog = async (req,res) => {
+module.exports.findOneBlog = async (req, res) => {
     try {
-    let blog = await BLOG.findById(req.params.blogID).populate("comments").exec();
+    const blog = await BLOG.findById(req.params.blogID).populate("comments").exec();
     return res.status(200).json({
         success: true,
         blog: blog
@@ -30,7 +30,7 @@ module.exports.findOneBlog = async (req,res) => {
     }
 }
 
-module.exports.createBlog = async (req,res) => {
+module.exports.createBlog = async (req, res) => {
     try {
         const blogModel = new BLOG({
             title: req.body.title ,
@@ -54,7 +54,7 @@ module.exports.createBlog = async (req,res) => {
     }
 }
 
-module.exports.editBlog = async (req,res) => {
+module.exports.editBlog = async (req, res) => {
     try {
     let query = {
         title: req.body.title,
@@ -73,7 +73,7 @@ module.exports.editBlog = async (req,res) => {
     }
 }
 
-module.exports.deleteBlog = async (req,res) => {
+module.exports.deleteBlog = async (req, res) => {
     try {
         await BLOG.findByIdAndRemove(req.params.blogID)
         return res.status(200).json({

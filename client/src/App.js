@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <AllProducts />
+      <ShowCampground />
       <Footer />
     </div>
   );

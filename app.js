@@ -9,31 +9,32 @@ const   express                     = require("express"),
         expressSanitizer            = require("express-sanitizer"),
         passport                    = require("passport"),
         localStrategy               = require("passport-local"),
+        cors                        = require("cors"),
         app                         = express();
 
 const   seedDB                      = require("./seeds");
 // MODELS IMPORTATION
-const   User                        = require("./models/user"),
-        Comment                     = require("./models/comment"),
-        Campground                  = require("./models/campground");
+const   User                        = require("./models/user.model"),
+        Comment                     = require("./models/comment.model"),
+        Campground                  = require("./models/campground.model");
 
 // ROUTES IMPORTATION
 const   indexRoutes                 = require("./routes/index.routes"),
         commentRoutes               = require("./routes/comments.routes"),
         campgroundRoutes            = require("./routes/campgrounds.routes"),
         shopRoutes                  = require("./routes/products.routes"),
-        userRoutes                  = require("./routes/users.routes"),
-        blogRoutes                  = require("./routes/blogs.routes");
+        userRoutes                  = require("./routes/users.routes");
 
 // BASE CONFIGURATION
-seedDB();
+//seedDB();
 dotenv.config();
 app.set("view engine", "ejs");
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cors());
 
 // DATABASE CONNEXION
 const   APP_PORT = process.env.APP_PORT || 3001;
@@ -60,12 +61,12 @@ app.use((req, res, next)=>{
 });
 
 // CALLING ROUTES
-app.use(indexRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+//app.use(indexRoutes);
+//app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
-app.use("/products", shopRoutes);
-app.use("/users/:id", userRoutes);
-app.use("/blogs", blogRoutes);
+//app.use("/products", shopRoutes);
+//app.use("/users/:userID", userRoutes);
+//app.use("/blogs", blogRoutes);
 
 app.get("*", (req, res)=>{
     res.render("routeNotFound");

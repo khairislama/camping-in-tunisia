@@ -1,7 +1,7 @@
-const   Campground          = require("../models/campground"),
-        Product             = require("../models/product"),
-        Comment             = require("../models/comment"),
-        Blog                = require("../models/blog");
+const   Campground          = require("../models/campground.model"),
+        Product             = require("../models/product.model"),
+        Comment             = require("../models/comment.model"),
+        Blog                = require("../models/blog.model");
 var middlewareObj = {};
 
 //middleware

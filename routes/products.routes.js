@@ -1,7 +1,7 @@
 const   express             = require("express"),
         router              = express.Router(),
         middleware          = require("../middleware"),
-        Product             = require("../models/product");
+        Product             = require("../models/product.model");
 
 router.get("/", (req, res)=>{
     Product.find({}, (err, products)=>{

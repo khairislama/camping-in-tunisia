@@ -1,8 +1,8 @@
 const   mongoose    = require("mongoose"),
-        Campground  = require("./models/campground"),
-        Comment     = require("./models/comment"),
-        Produit     = require("./models/product"),
-        User        = require("./models/user");
+        Campground  = require("./models/campground.model"),
+        Comment     = require("./models/comment.model"),
+        Produit     = require("./models/product.model"),
+        User        = require("./models/user.model");
 
 const data = [
     {

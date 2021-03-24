@@ -1,4 +1,4 @@
-const USER      = require("../models/user");
+const USER      = require("../models/user.model");
 
 module.exports.findOneUser = async (req, res) => {
     try {

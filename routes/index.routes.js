@@ -3,7 +3,7 @@ const   express             = require("express"),
         router              = express.Router(),
         passport            = require("passport"),
         indexController     = require("../controllers/index.controller")
-        User                = require("../models/user");
+        User                = require("../models/user.model");
 
 // ***** AUTH ROUTES *****
 

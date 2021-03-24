@@ -5,10 +5,10 @@ const   express         = require("express"),
 
 
 router.get("/", blogsController.findAllBlogs);
-router.post("/", middleware.isLoggedIn, blogsController.createBlog);
+router.post("/", blogsController.createBlog);
 router.get("/:blogID", blogsController.showBlog);
-router.get("/:blogID/edit",middleware.checkBlogOwnership, blogsController.findOneBlog);
-router.put("/:blogID", middleware.checkBlogOwnership, blogsController.editBlog);
-router.delete("/:blogID",middleware.checkBlogOwnership, blogsController.deleteBlog);
+router.get("/:blogID/edit", blogsController.findOneBlog);
+router.put("/:blogID", blogsController.editBlog);
+router.delete("/:blogID", blogsController.deleteBlog);
 
 module.exports = router;
