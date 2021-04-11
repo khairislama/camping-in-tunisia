@@ -1,10 +1,10 @@
 const mongoose     = require("mongoose");
 
 const campgroundSchema = new mongoose.Schema({
-    name: String,
-    price: String,
-    image: String,
-    description: String,
+    name: {type: String, required: true},
+    price: {type: String, required: true},
+    campgroundImages: String,
+    description: {type: String, required: true},
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

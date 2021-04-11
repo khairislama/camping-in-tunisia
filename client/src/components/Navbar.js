@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import AuthConext from '../context/AuthContext'
+import Logout from "./Logout"
 
-export default function navbar() {
+function Navbar() {
+
+  const {loggedIn} = useContext(AuthConext);
+
   return (
     <div className= "mb-4">
       <nav 
@@ -20,7 +25,7 @@ export default function navbar() {
             <li className="nav-item active mr-3">
               <a className="nav-link" href="/campgrounds">Community</a>
             </li>
-            <li className="nav-item active">
+            <li className="nav-item active mr-3">
               <a className="nav-link" href="/blogs">Forum</a>
             </li>
             <li className="nav-item active">
@@ -28,6 +33,23 @@ export default function navbar() {
             </li>
           </ul>
           <ul className="navbar-nav navbar-right ml-5">
+            {
+              loggedIn === false && (
+                <>
+                  <li className="nav-item ml-5"><a className="nav-link" href="/login">login</a></li>
+                  <li className="nav-item ml-4"><a className="nav-link" href="/register">Sign up</a></li>
+                </>
+              )
+            }
+            {
+              loggedIn === true && (
+                <>
+                  <div className="nav-item">
+                    <Logout />
+                  </div>
+                </>
+              )
+            }
           </ul>
         </div>
       </div>
@@ -35,3 +57,5 @@ export default function navbar() {
     </div>
   )
 }
+
+export default Navbar;

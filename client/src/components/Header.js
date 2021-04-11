@@ -10,7 +10,7 @@ export default function CampgroundHeader() {
                         If you're favourite campground is not picked yet, you can add it yourself
                 </p>
                 <p className="text-center">
-                    <a className="btn btn-primary btn-large" href="/campgrounds/new">Add a new campground</a>
+                    <a className="btn btn-primary btn-large" href="/campground/new">Add a new campground</a>
                 </p>
             </div>
     </header>

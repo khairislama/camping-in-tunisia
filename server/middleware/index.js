@@ -1,16 +1,23 @@
 const   Campground          = require("../models/campground.model"),
         Product             = require("../models/product.model"),
         Comment             = require("../models/comment.model"),
+        jwt                 = require("jsonwebtoken"),
         Blog                = require("../models/blog.model");
+
 var middlewareObj = {};
 
 //middleware
 middlewareObj.isLoggedIn = function(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
+    try {
+        const token = req.cookies.token;
+        if (!token) return res.status(401).json({errorMessage: "Unathorized"});
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verified.user;
+        next();
+    } catch(err) {
+        console.error(err);
+        res.status(401).json({errorMessage: "Unathorized"});
     }
-    req.flash("error", "You need to be logged in to do that!");
-    res.redirect("/login");
 }
 
 middlewareObj.checkCommentOwnership = function(req, res, next){

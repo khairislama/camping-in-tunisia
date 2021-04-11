@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import CampgroundCard from '../../components/campgroundComponents/CampgroundCard'
 import Header from '../../components/Header'
 import CampgroundFilter from '../../components/campgroundComponents/CampgroundFilter'
 
-export default function allCampgrounds() {
+export default function AllCampgrounds() {
+    const [campgrounds, setCampgrounds] = useState();
+
+    async function getCampgrounds(){
+        const result = await axios.get("http://localhost:3001/api/campgrounds/");
+        setCampgrounds(result.data.campgrounds)
+    }
+
+    useEffect(async ()=>{
+        getCampgrounds();
+    }, []);
+    let renderedCampgrounds = campgrounds !== null && campgrounds !== undefined ? (
+        campgrounds.map((campground, index) =>
+            <CampgroundCard key={ campground._id } campground={ campground }/> 
+        )
+    ): null
     return (
         <div className="container">
             <Header />
@@ -15,16 +31,7 @@ export default function allCampgrounds() {
             </div>
             <div className="container">
                 <div className="row text-center" style={{ display: "flex", flexWrap: "wrap" }}>
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
-                    <CampgroundCard />
+                    {renderedCampgrounds}
                 </div>
             </div>
         </div>

@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouteMatch } from 'react-router-dom'
+import axios from 'axios'
 import UserCampground from '../../components/campgroundComponents/UserCampground'
 import CampgroundShow from '../../components/campgroundComponents/CampgroundShow'
 import CommentShow from '../../components/campgroundComponents/CampgroundComments'
 
-export default function show() {
+export default function Show() {
+    let match = useRouteMatch();
+    const [campground, setCampground] = useState();
+    useEffect(async ()=>{
+        const result = await axios(
+            `http://127.0.0.1:3001/api/campgrounds/${match.params.campgroundID}`,
+        );
+        setCampground(result.data);
+    }, []);
+    let renderedCampground = campground !== null && campground !== undefined ? (
+        <>
+            <CampgroundShow campgroundResult={ campground }/> 
+            { campground.campground.comments.map((comment, index) => 
+                <CommentShow key={ comment._id } comment={ comment }/> 
+            )}
+            
+        </>
+    ): null
   return (
     <div className="container">
         <div className="row">
@@ -17,8 +36,7 @@ export default function show() {
                 <UserCampground />
             </div>
             <div className="col-md-9">
-                <CampgroundShow />
-                <CommentShow />
+                {renderedCampground}
             </div>
         </div>
     </div>

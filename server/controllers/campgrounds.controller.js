@@ -1,7 +1,9 @@
 const CAMPGROUND        = require("../models/campground.model");
+const USER              =require("../models/user.model");
+const jwt               = require("jsonwebtoken");
 
 module.exports.findAllCampgrounds = async (req, res) => {
-    try {
+    try {        
         const campgrounds = await CAMPGROUND.find();
         return res.status(200).json({
             success: true,
@@ -32,21 +34,27 @@ module.exports.findOneCampground = async (req, res) => {
 
 module.exports.createCampground = async (req, res) => {
     try {
-        let name = req.body.name;
-        let image = req.body.image;
-        let description = req.body.description;
-        let price = req.body.price;
-        let author = {
-            id: req.user._id,
-            firstname: req.user.firstname,
-            lastname: req.user.lastname
-        }
+        const token = req.cookies.token;
+        jwt.verify(token, process.env.JWT_SECRET, (err, user)=>{
+            req.user = user.user;
+        })
+        const userInfo = await USER.findOne({_id: req.user});
+        const {
+            name,
+            description,
+            price,
+            campgroundImages
+        } = req.body;
         const campgroundModel = new CAMPGROUND({
             name,
             price, 
-            image, 
+            campgroundImages, 
             description, 
-            author
+            author: {
+                id: userInfo._id,
+                firstname: userInfo.firstname,
+                lastname: userInfo.lastname
+            }
         })
         const savedCampgroundModel = await campgroundModel.save();
         return res.status(200).json({
@@ -66,7 +74,7 @@ module.exports.editCampground = async (req, res) => {
         let query = {
             name: req.body.name,
             price: req.body.price,
-            image: req.body.image,
+            campgroundImages: req.body.campgroundImages,
             description: req.body.description            
         }
         let updatedCampground = await CAMPGROUND.updateOne({_id : req.params.campgroundID},query);

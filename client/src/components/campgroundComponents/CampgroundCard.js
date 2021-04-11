@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../../assets/stylesheets/campgroundCard.css'
 
-export default function campgroundCard() {
+export default function campgroundCard(props) {
+  let linkToShow = "/campgrounds/" + props.campground._id;
   return (
     <div className="col-md-4 col-sm-6 mb-3" >
         <div className="campgroundCardBox" >
@@ -12,11 +14,17 @@ export default function campgroundCard() {
             </svg>
             <img src="https://bestjquery.com/tutorial/hover-effect/demo210/images/img-2.jpg" alt=""/>
             <div className="box-content">
-                <h3 className="title">Williamson</h3>
-                <span className="post">Web Designer</span>
+                <h3 className="title">{ props.campground.name }</h3>
+                <span className="post">{ props.campground.description.substring(0, 50) }...</span>
                 <ul className="icon">
-                    <li><a href="#"><i className="fas fa-search"></i></a></li>
-                    <li><a href="#"><i className="fas fa-link"></i></a></li>
+                    <li>
+                      <Link to={`/campgrounds/${props.campground._id}`}>
+                        <i className="fas fa-search"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <a href="#"><i className="fas fa-link"></i></a>
+                    </li>
                 </ul>
             </div>
             <svg className="curve2" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 150 50">
