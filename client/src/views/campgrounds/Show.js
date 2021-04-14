@@ -7,7 +7,7 @@ import CommentShow from '../../components/campgroundComponents/CampgroundComment
 
 export default function Show() {
     let match = useRouteMatch();
-    const [campground, setCampground] = useState();
+    const [campground, setCampground] = useState();    
     useEffect(async ()=>{
         const result = await axios(
             `http://127.0.0.1:3001/api/campgrounds/${match.params.campgroundID}`,
@@ -17,10 +17,7 @@ export default function Show() {
     let renderedCampground = campground !== null && campground !== undefined ? (
         <>
             <CampgroundShow campgroundResult={ campground }/> 
-            { campground.campground.comments.map((comment, index) => 
-                <CommentShow key={ comment._id } comment={ comment }/> 
-            )}
-            
+            <CommentShow campground={ campground }/>             
         </>
     ): null
   return (

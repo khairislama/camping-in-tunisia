@@ -9,7 +9,13 @@ function FormEdit() {
     const [campgroundImages, setCampgroundImages] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const [owner, setOwner] = useState(undefined);
     const history = useHistory();
+  
+    async function getCampgroundOwner(){
+      const ownerRes = await axios.get(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}/owner`);
+      setOwner(ownerRes.data);
+  }
     
     useEffect(async ()=>{
         const result = await axios(
@@ -20,6 +26,7 @@ function FormEdit() {
         setCampgroundImages(result.data.campground.campgroundImages);
         setDescription(result.data.campground.description);
         setPrice(result.data.campground.price);
+        getCampgroundOwner();
     }, []);
 
     async function editCampground(e){
@@ -38,7 +45,7 @@ function FormEdit() {
         }
     }
 
-    let renderedCampground = campground !== null && campground !== undefined ? (
+    let renderedCampground = owner === true && campground !== null && campground !== undefined ? (
         <>
             <h1 style={{ textAlign: "center" }}>Edit { campground.name }</h1>
             <div style={{ width: "30%", margin: "25px auto" }}>
@@ -81,6 +88,11 @@ function FormEdit() {
         <div className="row">
             <div className="col-lg-12">
                 {renderedCampground}
+                {
+                    owner === false && (
+                        history.push("/campgrounds")
+                    )
+                }
             </div>
         </div>
     </div>

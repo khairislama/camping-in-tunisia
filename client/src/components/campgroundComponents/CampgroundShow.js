@@ -1,11 +1,17 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 import CampgroundSlider from './CampgroundSlider'
 
 function CampgroundShow(props) {
   const match = useRouteMatch();
   const history = useHistory();
+  const [owner, setOwner] = useState(undefined);
+
+  async function getCampgroundOwner(){
+    const ownerRes = await axios.get(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}/owner`);
+    setOwner(ownerRes.data);
+}
 
   async function deleteCampgroud(e){
     e.preventDefault();
@@ -16,6 +22,10 @@ function CampgroundShow(props) {
       console.error(err);
     }
   }
+
+  useEffect(()=>{
+    getCampgroundOwner();
+  }, []);
 
   return (
     <div className="img-thumbnail">
@@ -28,14 +38,20 @@ function CampgroundShow(props) {
                 Submitted by { props.campgroundResult.campground.author.firstname } { props.campgroundResult.campground.author.lastname }
                 <br/><span className="text-muted">Created at: { props.campgroundResult.campground.created } </span>
             </p>
-            <Link to={`/campgrounds/${ props.campgroundResult.campground._id }/edit`}>
-            <div className="btn btn-warning">Edit</div>
-            </Link>
-            <form onSubmit={ deleteCampgroud }>
-                <div className="delete-form">
-                  <button className="btn btn-danger" type="submit">Delete</button>
-                </div>
-            </form>
+            {
+              owner === true && (
+                <>
+                  <Link to={`/campgrounds/${ props.campgroundResult.campground._id }/edit`}>
+                  <div className="btn btn-warning">Edit</div>
+                  </Link>
+                  <form onSubmit={ deleteCampgroud }>
+                      <div className="delete-form">
+                        <button className="btn btn-danger" type="submit">Delete</button>
+                      </div>
+                  </form>
+                </>                
+              )
+            }            
         </div>
     </div> 
   )

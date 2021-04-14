@@ -7,8 +7,9 @@ const   express                 = require("express"),
 router.get("/", campgroundController.findAllCampgrounds);
 router.post("/",middleware.isLoggedIn, campgroundController.createCampground);
 router.get("/:campgroundID", campgroundController.findOneCampground);
-router.get("/:campgroundID/edit", campgroundController.findOneCampground);
-router.put("/:campgroundID", campgroundController.editCampground);
-router.delete("/:campgroundID", campgroundController.deleteCampground);
+router.get("/:campgroundID/edit",middleware.checkCampgroundOwnership, campgroundController.findOneCampground);
+router.put("/:campgroundID",middleware.checkCampgroundOwnership, campgroundController.editCampground);
+router.delete("/:campgroundID",middleware.checkCampgroundOwnership, campgroundController.deleteCampground);
+router.get("/:campgroundID/owner", campgroundController.isOwner);
 
 module.exports = router;

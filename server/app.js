@@ -36,9 +36,9 @@ mongoose.connect(
 
 // CALLING ROUTES
 //app.use(indexRoutes);
-//app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/campgrounds", require("./routes/campgrounds.routes"));
+app.use("/api/campgrounds/:campgroundID/comments", require("./routes/comments.routes"));
 //app.use("/products", shopRoutes);
 //app.use("/users/:userID", userRoutes);
 //app.use("/blogs", blogRoutes);

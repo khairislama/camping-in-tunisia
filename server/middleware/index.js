@@ -16,49 +16,39 @@ middlewareObj.isLoggedIn = function(req, res, next){
         next();
     } catch(err) {
         console.error(err);
-        res.status(401).json({errorMessage: "Unathorized"});
+        return res.status(401).json({errorMessage: "Unathorized"});
     }
 }
 
-middlewareObj.checkCommentOwnership = function(req, res, next){
-    if (req.isAuthenticated()){
-        Comment.findById(req.params.comment_id, (err, comment)=>{
-            if (err){
-                req.flash("error", "Comment not found");
-                res.redirect("back");
-            }else{
-                if (comment.author.id.equals(req.user._id)){
-                    next();
-                }else{
-                    req.flash("error", "You don\'t have permission to do that");
-                    res.redirect(`/campgrounds/${req.params.id}`);
-                }
-            }
-        });  
-    }else{
-        req.flash("error", "You need to be logged in to comment on a post!");
-        res.redirect("/login");
+middlewareObj.checkCampgroundOwnership = async function(req, res, next){
+    try {
+        const token = req.cookies.token;
+        if (!token) return res.status(401).json({errorMessage: "Unathorized"});
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        await Campground.findById(req.params.campgroundID, (err, campground)=>{
+            if (err) return res.status(401).json({errorMessage: "Unathorized"});
+            if (campground.author.id.equals(verified.user)) return next();
+            return res.status(401).json({errorMessage: "Unathorized"});
+        });
+    }catch(err){
+        console.error(err);
+        return res.status(401).json({errorMessage: "Unathorized"});
     }
 }
 
-middlewareObj.checkCampgroundOwnership = function(req, res, next){
-    if (req.isAuthenticated()){
-        Campground.findById(req.params.id, (err, campground)=>{
-            if (err){
-                req.flash("error", "Campground not found");
-                res.redirect("back");
-            }else{
-                if (campground.author.id.equals(req.user._id)){
-                    next();
-                }else{
-                    req.flash("error", "you don\'t have permission to do that");
-                    res.redirect(`/campgrounds/${req.params.id}`);
-                }
-            }
-        });  
-    }else{
-        req.flash("error", "you need to be logged in to do that!");
-        res.redirect("/login");
+middlewareObj.checkCommentOwnership = async function(req, res, next){
+    try{
+        const token = req.cookies.token;
+        if (!token) return res.status(401).json({errorMessage: "Unathorized"});
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        await COMMENT.findById(req.params.commentID, (err, comment)=>{
+            if (err) return res.status(401).json({errorMessage: "Unathorized"});
+            if (comment.author.id.equals(verified.user)) return next();            
+        });
+        return res.status(401).json({errorMessage: "Unathorized"});
+    }catch(err){
+        console.error(err);
+        return res.status(401).json({errorMessage: "Unathorized"});
     }
 }
 

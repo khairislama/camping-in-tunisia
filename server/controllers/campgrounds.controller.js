@@ -104,3 +104,18 @@ module.exports.deleteCampground = async (req, res) => {
         })
     }
 }
+
+module.exports.isOwner = async (req, res)=>{
+    try {
+        const token = req.cookies.token;
+        if (!token) return res.json(false);
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        await CAMPGROUND.findById(req.params.campgroundID, (err, campground)=>{
+            if (err) return res.json(false);
+            if (campground.author.id.equals(verified.user)) return res.send(true);
+            return res.json(false);
+        });
+    } catch(err) {
+        res.json(false);
+    }
+}
