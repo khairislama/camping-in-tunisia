@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../../assets/stylesheets/campgroundCard.css'
 
 export default function campgroundCard(props) {
-  let linkToShow = "/campgrounds/" + props.campground._id;
+  console.log(props.campground.campgroundImages)
   return (
     <div className="col-md-4 col-sm-6 mb-3" >
         <div className="campgroundCardBox" >
@@ -12,7 +12,7 @@ export default function campgroundCard(props) {
                 d="M398.938,143.806c-24.004,26.063-155.373,104.33-224.724,7.328 C69.626,4.846,0.5,71.583,0.5,71.583V1.5h398.629L398.938,143.806z">                        
               </path>
             </svg>
-            <img src="https://bestjquery.com/tutorial/hover-effect/demo210/images/img-2.jpg" alt=""/>
+            <img src={`/uploads/campgrounds/${props.campground.campgroundImages}`} alt="..."/>
             <div className="box-content">
                 <h3 className="title">{ props.campground.name }</h3>
                 <span className="post">{ props.campground.description.substring(0, 50) }...</span>

@@ -7,18 +7,26 @@ import CommentShow from '../../components/campgroundComponents/CampgroundComment
 
 export default function Show() {
     let match = useRouteMatch();
-    const [campground, setCampground] = useState();    
-    useEffect(async ()=>{
+    const [campground, setCampground] = useState();  
+    
+    async function getCampground(){
         const result = await axios(
             `http://127.0.0.1:3001/api/campgrounds/${match.params.campgroundID}`,
         );
         setCampground(result.data);
+    }
+    
+    useEffect(()=>{
+        getCampground();
     }, []);
     let renderedCampground = campground !== null && campground !== undefined ? (
         <>
             <CampgroundShow campgroundResult={ campground }/> 
-            <CommentShow campground={ campground }/>             
+            <CommentShow campground={ campground } getCampground={getCampground}/>             
         </>
+    ): null
+    let renderedUser = campground !== null && campground !== undefined ? (
+            <UserCampground author={campground.campground.author} />    
     ): null
   return (
     <div className="container">
@@ -30,7 +38,7 @@ export default function Show() {
                     <li className="list-group-item">Info 2</li>
                     <li className="list-group-item">Info 3</li>
                 </div>
-                <UserCampground />
+                {renderedUser}
             </div>
             <div className="col-md-9">
                 {renderedCampground}

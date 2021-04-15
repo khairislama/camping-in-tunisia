@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useRouteMatch } from 'react-router';
 import '../../assets/stylesheets/campgroundComments.css'
 
 function Comment(props) {
+    let match = useRouteMatch();
   const [visible, SetVisible] = useState(false)
   const handleVisible = () => {
     SetVisible(!visible)
   }
+
   function renderComments(){
     return props.campground.campground.comments.map((comment, index)=>{
         return (
@@ -17,7 +21,11 @@ function Comment(props) {
                 />
                 <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                     <div className="g-mb-15">
-                        <h5 className="h5 g-color-gray-dark-v1 mb-0">{comment.author.firstname} {comment.author.lastname}</h5>
+                        <div className="row" >
+                            <div className="col-8">
+                                <h5 className="h5 g-color-gray-dark-v1 mb-0">{comment.author.firstname} {comment.author.lastname}</h5>
+                            </div>                     
+                        </div>
                         <span className="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
                     </div>              
                     <p>{comment.text}</p>              

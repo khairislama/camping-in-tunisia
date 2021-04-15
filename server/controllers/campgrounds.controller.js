@@ -43,8 +43,8 @@ module.exports.createCampground = async (req, res) => {
             name,
             description,
             price,
-            campgroundImages
         } = req.body;
+        const campgroundImages = req.file.fieldname + "-" + req.file.originalname;
         const campgroundModel = new CAMPGROUND({
             name,
             price, 

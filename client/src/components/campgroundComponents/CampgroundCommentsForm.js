@@ -12,6 +12,8 @@ function CampgroundCommentsForm(props) {
                 text: commentText
             }
             await axios.post(`http://localhost:3001/api/campgrounds/${props.campgroundID}/comments/`, commentData);
+            props.getCampground();
+            setCommentText("");
         }catch(err){
             console.error(err);
         }

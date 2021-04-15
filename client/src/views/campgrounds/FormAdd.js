@@ -13,12 +13,11 @@ function FormAdd() {
     async function addCampground(e){
         e.preventDefault();
         try {
-            const campgroundData = {
-                name,
-                description,
-                campgroundImages,
-                price
-            };
+            const campgroundData = new FormData();
+            campgroundData.append("name", name);
+            campgroundData.append("description", description);
+            campgroundData.append("price", price);
+            campgroundData.append("campgroundImages", campgroundImages);
             await axios.post("http://localhost:3001/api/campgrounds/", campgroundData);
             history.push("/campgrounds");
         }catch (err){
@@ -32,7 +31,7 @@ function FormAdd() {
             <div className="col-lg-12">
                 <h1 style={{ textAlign: "center" }}>Create a new campground</h1>
                 <div style={{ width: "30%", margin: "25px auto" }}>
-                    <form onSubmit={addCampground}>
+                    <form onSubmit={addCampground} encType="multipart/form-data" >
                         <div className="form-group">
                             <input className="form-control" type="text" 
                                 placeholder="name" name="name"
@@ -41,10 +40,9 @@ function FormAdd() {
                             />
                         </div>
                         <div className="form-group">
-                            <input className="form-control" type="text" 
-                                placeholder="image url" name="campgroundImages"
-                                onChange={ (e) => setCampgroundImages(e.target.value) }
-                                value={campgroundImages}
+                            <input className="form-control" type="file" 
+                                placeholder="image url" filename="campgroundImages"
+                                onChange={ (e) => setCampgroundImages(e.target.files[0]) }
                             />
                         </div>
                         <div className="form-group">

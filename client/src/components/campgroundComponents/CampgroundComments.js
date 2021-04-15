@@ -6,7 +6,7 @@ function CampgroundComments(props) {
   return (
     <>
       <CampgroundCommentsList campground={ props.campground } />
-      <CampgroundCommentsForm campgroundID={ props.campground.campground._id }/>
+      <CampgroundCommentsForm campgroundID={ props.campground.campground._id } getCampground={props.getCampground} />
     </>
   )
 }
