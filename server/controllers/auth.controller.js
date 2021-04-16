@@ -24,7 +24,7 @@ module.exports.addUser = async (req, res) =>{
         const newUser = new User({username, passwordHash, firstname, lastname});
         const savedUser = await newUser.save();
         // sign the token
-        const token = jwt.sign({user: savedUser},process.env.JWT_SECRET);
+        const token = jwt.sign({id: savedUser._id, firstname, lastname},process.env.JWT_SECRET);
         // send the token in a HTTP-Only cookie
         res.cookie("token", token, {
             httpOnly: true,
@@ -44,7 +44,7 @@ module.exports.logUser = async (req, res) =>{
         const passwordCorrect = await bcrypt.compare(password, existingUser.passwordHash);
         if (!passwordCorrect) return res.status(401).json({errorMessage: "wrong email or password."});
         // sign the token
-        const token = jwt.sign({user: existingUser._id},process.env.JWT_SECRET);
+        const token = jwt.sign({id: existingUser._id, firstname: existingUser.firstname, lastname: existingUser.lastname},process.env.JWT_SECRET);
         // send the token in a HTTP-Only cookie
         res.cookie("token", token, {
             httpOnly: true,
@@ -65,10 +65,17 @@ module.exports.logoutUser = (req, res) =>{
 module.exports.isLoggedIn = (req, res)=>{
     try {
         const token = req.cookies.token;
-        if (!token) return res.json(false);
-        jwt.verify(token, process.env.JWT_SECRET);
-        res.send(true);
+        if (!token) return res.json({
+            success: false
+        });
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({
+            success: true,
+            userInfo : verified
+        });
     } catch(err) {
-        res.json(false);
+        res.json({
+            success: false
+        });
     }
 }

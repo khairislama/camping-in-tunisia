@@ -16,7 +16,7 @@ function CampgroundShow(props) {
   async function deleteCampgroud(e){
     e.preventDefault();
     try{
-      await axios.delete(`http://127.0.0.1:3001/api/campgrounds/${match.params.campgroundID}`);
+      await axios.delete(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}`);
       history.push(`/campgrounds`);
     }catch(err){
       console.error(err);

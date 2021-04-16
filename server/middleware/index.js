@@ -12,7 +12,7 @@ middlewareObj.isLoggedIn = function(req, res, next){
         const token = req.cookies.token;
         if (!token) return res.status(401).json({errorMessage: "Unathorized"});
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified.user;
+        req.user = verified;
         next();
     } catch(err) {
         console.error(err);
@@ -27,7 +27,7 @@ middlewareObj.checkCampgroundOwnership = async function(req, res, next){
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         await Campground.findById(req.params.campgroundID, (err, campground)=>{
             if (err) return res.status(401).json({errorMessage: "Unathorized"});
-            if (campground.author.id.equals(verified.user)) return next();
+            if (campground.author.id.equals(verified.id)) return next();
             return res.status(401).json({errorMessage: "Unathorized"});
         });
     }catch(err){
@@ -43,7 +43,7 @@ middlewareObj.checkCommentOwnership = async function(req, res, next){
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         await COMMENT.findById(req.params.commentID, (err, comment)=>{
             if (err) return res.status(401).json({errorMessage: "Unathorized"});
-            if (comment.author.id.equals(verified.user)) return next();            
+            if (comment.author.id.equals(verified.id)) return next();            
         });
         return res.status(401).json({errorMessage: "Unathorized"});
     }catch(err){

@@ -36,9 +36,9 @@ module.exports.createCampground = async (req, res) => {
     try {
         const token = req.cookies.token;
         jwt.verify(token, process.env.JWT_SECRET, (err, user)=>{
-            req.user = user.user;
+            req.user = user;
         })
-        const userInfo = await USER.findOne({_id: req.user});
+        const userInfo = await USER.findOne({_id: req.user.id});
         const {
             name,
             description,
@@ -112,7 +112,7 @@ module.exports.isOwner = async (req, res)=>{
         const verified = jwt.verify(token, process.env.JWT_SECRET);
         await CAMPGROUND.findById(req.params.campgroundID, (err, campground)=>{
             if (err) return res.json(false);
-            if (campground.author.id.equals(verified.user)) return res.send(true);
+            if (campground.author.id.equals(verified.id))   return res.send(true);
             return res.json(false);
         });
     } catch(err) {

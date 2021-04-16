@@ -1,22 +1,24 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Navbar from './components/Navbar'
-import LandingPage from './views/Landing'
-import AllCampgrounds from './views/campgrounds/AllCampgrounds'
-import ShowCampground from './views/campgrounds/Show'
-import FormAddCampground from './views/campgrounds/FormAdd'
-import FormEditCampground from './views/campgrounds/FormEdit'
-import AllProducts from './views/products/AllProducts'
-import ShowProducts from './views/products/Show'
-import Register from './views/Register'
-import Login from './views/Login'
-import AboutUs from './views/AboutUs'
-import ContactUs from './views/ContactUs'
-import Footer from './components/Footer'
-import AuthConext from './context/AuthContext';
+import Navbar               from './components/Navbar'
+import LandingPage          from './views/Landing'
+import AllCampgrounds       from './views/campgrounds/AllCampgrounds'
+import ShowCampground       from './views/campgrounds/Show'
+import FormAddCampground    from './views/campgrounds/FormAdd'
+import FormEditCampground   from './views/campgrounds/FormEdit'
+import AllProducts          from './views/products/AllProducts'
+import ShowProducts         from './views/products/Show'
+import ShowUser             from './views/users/Show'   
+import Register             from './views/Register'
+import Login                from './views/Login'
+import AboutUs              from './views/AboutUs'
+import ContactUs            from './views/ContactUs'
+import Footer               from './components/Footer'
+import AuthConext           from './context/AuthContext';
 function Router() {
 
     const {loggedIn} = useContext(AuthConext);
+    console.log(loggedIn)
 
   return (
     <BrowserRouter>
@@ -54,8 +56,13 @@ function Router() {
             <ContactUs />
             <Footer />
         </Route>
+        <Route path="/user/:userID" exact>
+            <Navbar />
+            <ShowUser />
+            <Footer />
+        </Route>
         {
-            loggedIn === false && (
+            loggedIn?.success === false && (
                 <>
                     <Route path="/login" exact>
                         <Navbar />
@@ -71,7 +78,7 @@ function Router() {
             )
         }
         {
-            loggedIn === true && (
+            loggedIn?.success === true && (
                 <>
                 <Route path="/campground/new" exact>
                     <Navbar />

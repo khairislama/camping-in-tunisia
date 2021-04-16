@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import AuthConext from '../context/AuthContext'
-import Logout from "./Logout"
+import UserDropdown from "./UserDropdown"
 
 function Navbar() {
 
@@ -34,7 +34,7 @@ function Navbar() {
           </ul>
           <ul className="navbar-nav navbar-right ml-5">
             {
-              loggedIn === false && (
+              loggedIn?.success === false && (
                 <>
                   <li className="nav-item ml-5"><a className="nav-link" href="/login">login</a></li>
                   <li className="nav-item ml-4"><a className="nav-link" href="/register">Sign up</a></li>
@@ -42,10 +42,10 @@ function Navbar() {
               )
             }
             {
-              loggedIn === true && (
+              loggedIn?.success === true && (
                 <>
-                  <div className="nav-item">
-                    <Logout />
+                  <div className="nav-item mr-5">
+                    <UserDropdown />
                   </div>
                 </>
               )

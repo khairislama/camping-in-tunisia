@@ -18,7 +18,7 @@ function FormAdd() {
             campgroundData.append("description", description);
             campgroundData.append("price", price);
             campgroundData.append("campgroundImages", campgroundImages);
-            await axios.post("http://localhost:3001/api/campgrounds/", campgroundData);
+            await axios.post("http://localhost:3001/api/campgrounds/", campgroundData)
             history.push("/campgrounds");
         }catch (err){
             console.error(err);
