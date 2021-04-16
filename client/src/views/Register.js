@@ -23,9 +23,9 @@ function Register() {
                 password,
                 passwordVerify
             }
-            await axios.post("http://localhost:3001/api/auth/register", registerData);
+            const registredUser = await axios.post("http://localhost:3001/api/auth/register", registerData);
             await getLoggedIn();
-            history.push("/campgrounds");
+            history.push(`/user/${registredUser.data.id}/edit`);
         }catch(err) {
             console.error(err);
         }
@@ -37,7 +37,7 @@ function Register() {
                 <p className="text-center">Please fill in this form to create an account.</p>
                 <hr className="registerHr" />
 
-                <label for="email"><b>Email</b></label>
+                <label htmlFor="email"><b>Email</b></label>
                 <input className="registerInput" type="email" 
                 placeholder="Enter Email" 
                 name="username" 
@@ -45,28 +45,28 @@ function Register() {
                 value={ username }
                 required/>
 
-                <label for="email"><b>First Name</b></label>
+                <label htmlFor="email"><b>First Name</b></label>
                 <input className="registerInput" type="text" 
                 placeholder="Enter first name" name="firstname" 
                 onChange={ (e) => setFirstname(e.target.value) }
                 value={ firstname }
                 required/>
 
-                <label for="email"><b>Last Name</b></label>
+                <label htmlFor="email"><b>Last Name</b></label>
                 <input className="registerInput" type="text" 
                 placeholder="Enter last name" name="lastname" 
                 onChange={ (e) => setLastname(e.target.value) }
                 value={ lastname }
                 required/>
 
-                <label for="psw"><b>Password</b></label>
+                <label htmlFor="psw"><b>Password</b></label>
                 <input className="registerInput" type="password" 
                 placeholder="Enter Password" name="password" 
                 onChange={ (e) => setPassword(e.target.value) }
                 value={ password }
                 required/>
 
-                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <label htmlFor="psw-repeat"><b>Repeat Password</b></label>
                 <input className="registerInput" type="password" 
                 placeholder="Repeat Password" name="passwordVerify" 
                 onChange={ (e) => setPasswordVerify(e.target.value) }

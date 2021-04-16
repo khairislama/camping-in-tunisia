@@ -14,7 +14,6 @@ export default function Show() {
             `http://127.0.0.1:3001/api/users/${match.params.userID}`,
         );
         setUserInfo(result.data.user);
-        console.log(result.data.user);
     }
 
     useEffect(()=>{
@@ -26,7 +25,7 @@ export default function Show() {
             <div className="row">
                     <div className="col-md-4">
                         <div className="profile-img">
-                            <img src={userInfo.userImage} alt="user image"/>
+                            <img src={`/uploads/users/${userInfo.userImage}`} alt="user image"/>
                         </div>
                     </div>
                     <div className="col-md-6">
@@ -70,7 +69,7 @@ export default function Show() {
                         </div>
                     </div>
                     {
-                        loggedIn.userInfo.id === userInfo._id && (
+                        loggedIn?.userInfo?.id === userInfo?._id && (
                             <div className="col-md-2">
                                 <a className="border profile-edit-btn" href="/users/<%= user._id %>/edit">
                                     <i className="fas fa-edit mr-2"></i> Edit Profile
@@ -79,7 +78,7 @@ export default function Show() {
                         )
                     }
                     {
-                        loggedIn.userInfo.id !== userInfo._id && (
+                        loggedIn?.userInfo?.id !== userInfo?._id && (
                             <>
                             <div className="col-md-1">
                                 <button className="btn btn-primary">follow</button>

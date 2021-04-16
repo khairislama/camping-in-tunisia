@@ -16,7 +16,8 @@ module.exports.createComment = async (req, res) => {
             author: {
                 id: userInfo._id,
                 firstname: userInfo.firstname,
-                lastname: userInfo.lastname
+                lastname: userInfo.lastname,
+                userImage: userInfo.userImage
             }
         });
         const savedComment = await commentModel.save();

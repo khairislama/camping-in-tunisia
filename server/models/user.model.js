@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     surname: {type: String, default: "new member"},
     profession: {type: String, default: "jobless"},
     phoneNumber: {type: String, default: "-- --- ---"},
-    userImage: {type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdHD-KQQkMQdJcXTSALcRVFp7chjRbA0e-w&usqp=CAU"},
+    userImage: {type: String, default: "userImage-default-vector-avatar-image1541962.jpg"},
     created: {type: Date, default: Date.now}
 });
 

@@ -24,11 +24,12 @@ module.exports.addUser = async (req, res) =>{
         const newUser = new User({username, passwordHash, firstname, lastname});
         const savedUser = await newUser.save();
         // sign the token
-        const token = jwt.sign({id: savedUser._id, firstname, lastname},process.env.JWT_SECRET);
+        const token = jwt.sign({id: savedUser._id, firstname, lastname, userImage: savedUser.userImage},process.env.JWT_SECRET);
         // send the token in a HTTP-Only cookie
         res.cookie("token", token, {
             httpOnly: true,
-        }).send();
+        });
+        res.json({id: savedUser._id}).send();
     } catch(err) {
         console.error(err);
         res.status(500).send();
@@ -44,7 +45,12 @@ module.exports.logUser = async (req, res) =>{
         const passwordCorrect = await bcrypt.compare(password, existingUser.passwordHash);
         if (!passwordCorrect) return res.status(401).json({errorMessage: "wrong email or password."});
         // sign the token
-        const token = jwt.sign({id: existingUser._id, firstname: existingUser.firstname, lastname: existingUser.lastname},process.env.JWT_SECRET);
+        const token = jwt.sign({
+            id: existingUser._id,
+            firstname: existingUser.firstname, 
+            lastname: existingUser.lastname,
+            userImage: existingUser.userImage
+        },process.env.JWT_SECRET);
         // send the token in a HTTP-Only cookie
         res.cookie("token", token, {
             httpOnly: true,

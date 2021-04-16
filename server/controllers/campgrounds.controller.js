@@ -9,7 +9,7 @@ module.exports.findAllCampgrounds = async (req, res) => {
             success: true,
             campgrounds: campgrounds
         })
-    }catch{
+    }catch(err){
         return res.status(400).json({
             success: false,
             error: err

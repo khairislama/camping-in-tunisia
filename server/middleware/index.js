@@ -2,6 +2,7 @@ const   Campground          = require("../models/campground.model"),
         Product             = require("../models/product.model"),
         Comment             = require("../models/comment.model"),
         jwt                 = require("jsonwebtoken"),
+        User                = require("../models/user.model"),
         Blog                = require("../models/blog.model");
 
 var middlewareObj = {};
@@ -73,17 +74,19 @@ middlewareObj.checkProductOwnership = function(req, res, next){
     }
 }
 
-middlewareObj.checkIfCurrentUser = function(req, res, next){
-    if (req.isAuthenticated()){
-        if (req.params.id == req.user._id){
-            next();
-        }else{
-            req.flash("error", "You don\t have permission to do that");
-            res.redirect(`/users/${req.params.id}`);
-        }
-    }else{
-        req.flash("error", "you need to be logged in to do that!");
-        res.redirect("/login");
+middlewareObj.checkIfCurrentUser = async function(req, res, next){
+    try{
+        const token = req.cookies.token;
+        if (!token) return res.status(401).json({errorMessage: "Unathorized"});
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        await User.findById(req.params.userID, (err, user)=>{
+            if (err) return res.status(401).json({errorMessage: "Unathorized"});
+            if (user._id.equals(verified.id)) return next();            
+        });
+        return res.status(401).json({errorMessage: "Unathorized"});
+    }catch(err){
+        console.error(err);
+        return res.status(401).json({errorMessage: "Unathorized"});
     }
 }
 

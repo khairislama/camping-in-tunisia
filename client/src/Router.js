@@ -8,7 +8,8 @@ import FormAddCampground    from './views/campgrounds/FormAdd'
 import FormEditCampground   from './views/campgrounds/FormEdit'
 import AllProducts          from './views/products/AllProducts'
 import ShowProducts         from './views/products/Show'
-import ShowUser             from './views/users/Show'   
+import ShowUser             from './views/users/Show' 
+import EditUser             from './views/users/FromEdit'  
 import Register             from './views/Register'
 import Login                from './views/Login'
 import AboutUs              from './views/AboutUs'
@@ -18,7 +19,6 @@ import AuthConext           from './context/AuthContext';
 function Router() {
 
     const {loggedIn} = useContext(AuthConext);
-    console.log(loggedIn)
 
   return (
     <BrowserRouter>
@@ -59,6 +59,11 @@ function Router() {
         <Route path="/user/:userID" exact>
             <Navbar />
             <ShowUser />
+            <Footer />
+        </Route>
+        <Route path="/user/:userID/edit" exact>
+            <Navbar />
+            <EditUser />
             <Footer />
         </Route>
         {
