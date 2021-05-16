@@ -12,7 +12,8 @@ module.exports.addUser = async (req, res) =>{
             passwordVerify
         } = req.body;
 
-        if (!username || !password || !passwordVerify || !firstname || !lastname) return res.status(400).json({errorMessage: "please enter all required fields."});
+        if (!username || !password || !passwordVerify || !firstname || !lastname) 
+            return res.status(400).json({errorMessage: "please enter all required fields."});
         if (password.length < 6 ) return res.status(400).json({errorMessage: "please enter a password of at least 6 characters."});
         if (password !== passwordVerify) return res.status(400).json({errorMessage: "please enter the same password twice."});
         const existingUser = await User.findOne({username});
