@@ -17,5 +17,7 @@ const upload = multer({storage});
 
 router.get("/", userController.findOneUser);
 router.put("/", middleware.checkIfCurrentUser, upload.single("userImage"), userController.editUser);
+router.post("/:campgroundID", middleware.isLoggedIn, userController.addBookmark);
+router.get("/getBookmarks", middleware.isLoggedIn, userController.getBookmarks)
 
 module.exports = router;

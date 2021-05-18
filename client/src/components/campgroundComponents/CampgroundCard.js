@@ -1,8 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import '../../assets/stylesheets/campgroundCard.css'
+import AuthConext from '../../context/AuthContext';
 
-export default function campgroundCard(props) {
+export default function CampgroundCard(props) {
+  
+  const [bookmarked, setBookmarked] = useState(false);
+  const isBookmarked = useRef(false)
+  const history = useHistory();
+  
+  function searchBookmark(){
+    if (props.userBookmarks == []) return null;
+    const alreadyBookmarked = props.userBookmarks.includes(props.campground._id);
+        if (alreadyBookmarked) 
+          setBookmarked(true);
+  }
+
+  useEffect(()=>{
+    searchBookmark()
+  }, [props.userBookmarks])
+
+  function showCampground(){
+    history.push(`/campgrounds/${props.campground._id}`)
+  }
+
+  async function bookmarkToggle(){
+    isBookmarked.current.classList.toggle("far")
+    isBookmarked.current.classList.toggle("fas")
+    //add bookmark in the back
+    const result = await axios.post(`http://localhost:3001/api/users/${props.userID}/${props.campground._id}`);
+  }
+
   return (
     <div className="col-md-4 col-sm-6 mb-3" >
         <div className="campgroundCardBox" >
@@ -13,7 +42,7 @@ export default function campgroundCard(props) {
             </svg>
             <img src={`/uploads/campgrounds/${props.campground.campgroundImages}`} alt="..."/>
             <div className="box-content">
-                <h3 className="title">{ props.campground.name }</h3>
+                <h3 className="title" onClick={ showCampground }> { props.campground.name }</h3>
                 <span className="post">{ props.campground.description.substring(0, 50) }...</span>
                 <ul className="icon">
                     <li>
@@ -22,7 +51,20 @@ export default function campgroundCard(props) {
                       </Link>
                     </li>
                     <li>
-                      <a href="#"><i className="fas fa-link"></i></a>
+                      {
+                        bookmarked && (
+                          <a onClick={ bookmarkToggle }>
+                            <i ref={isBookmarked} className="fas fa-bookmark"></i> 
+                          </a>
+                        )
+                      }
+                      {
+                        !bookmarked && (
+                          <a onClick={ bookmarkToggle }>
+                            <i ref={isBookmarked} className="far fa-bookmark"></i> 
+                          </a>
+                        )
+                      }
                     </li>
                 </ul>
             </div>

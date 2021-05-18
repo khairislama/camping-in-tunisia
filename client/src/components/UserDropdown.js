@@ -46,7 +46,7 @@ function UserDropdown() {
         <DropdownItem onClick={()=>{history.push(`/user/${loggedIn.userInfo.id}/edit`)}}><i className="fas fa-user-cog mr-2"></i>Settings</DropdownItem>
         <DropdownItem divider />
         <DropdownItem><i className="fas fa-bookmark mr-2"></i>Your Bookmarks</DropdownItem>
-        <DropdownItem><i className="fas fa-envelope mr-2"></i>Contact US</DropdownItem>
+        <DropdownItem onClick={()=>{history.push(`/contactus`)}}><i className="fas fa-envelope mr-2"></i>Contact US</DropdownItem>
         <DropdownItem onClick={logout}><i className="fas fa-sign-out-alt mr-2"></i>Logout</DropdownItem>
       </DropdownMenu>
     </Dropdown>

@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
     nblogs: {type: String, default: "0"},
     nlikes: {type: String, default: "0"},
     ncomments: {type: String, default: "0"},
+    bookmarks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Campground"
+        }
+    ],
     followers: [
         {
             type: mongoose.Schema.Types.ObjectId,

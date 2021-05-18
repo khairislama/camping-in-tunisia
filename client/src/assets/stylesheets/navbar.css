@@ -13,6 +13,9 @@
     text-decoration: none;
     font-size: 17px;
   }
+  .navbar-brand span{
+    color: rgb(26, 187, 26);
+  }
   
   #navbar a:hover {
     background-color: #ddd;
@@ -28,12 +31,3 @@
     padding: 16px;
   }
   
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-  
-  .sticky + .content {
-    padding-top: 60px;
-  }
