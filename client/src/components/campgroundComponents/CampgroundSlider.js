@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../../assets/stylesheets/campgroundSlider.css'
 
 
-function CampgroundSlider() {
+function CampgroundSlider(props) {
     const [slideIndex, setSlideIndex] = useState(1)
     useEffect(()=>{
         showSlides(slideIndex);
@@ -32,7 +32,7 @@ function CampgroundSlider() {
         captionText.innerHTML = dots[n-1].alt;
     }
 
-    const IMG_URL = "https://q9m3bv0lkc15twiiq99aa1cy-wpengine.netdna-ssl.com/wp-content/uploads/2019/07/TENT.jpeg"
+    const IMG_URL = `/uploads/campgrounds/${props.campground.campgroundImages}`
 
   return (
     <div className="campgraoundSlider">

@@ -1,20 +1,24 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
+import Moment from 'react-moment'
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import CampgroundSlider from './CampgroundSlider'
 
 function CampgroundShow(props) {
   const match = useRouteMatch();
   const history = useHistory();
   const [owner, setOwner] = useState(undefined);
+  const [dropdownOpen, setOpen] = useState(false);
 
   async function getCampgroundOwner(){
     const ownerRes = await axios.get(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}/owner`);
     setOwner(ownerRes.data);
-}
+  }
 
-  async function deleteCampgroud(e){
-    e.preventDefault();
+  const toggle = () => setOpen(!dropdownOpen);
+
+  async function deleteCampgroud(){
     try{
       await axios.delete(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}`);
       history.push(`/campgrounds`);
@@ -23,35 +27,43 @@ function CampgroundShow(props) {
     }
   }
 
+  function editCampground(){
+    history.push(`/campgrounds/${ props.campgroundResult.campground._id }/edit`);
+  }
+
   useEffect(()=>{
     getCampgroundOwner();
   }, []);
 
   return (
     <div className="img-thumbnail">
-        <CampgroundSlider />
+        <CampgroundSlider campground={ props.campgroundResult.campground } />
         <div className="caption-full">
             <h4 className="float-right">TND { props.campgroundResult.campground.price }/night</h4>
-            <h4 className="text-monospace"><a href="#">{ props.campgroundResult.campground.name }</a></h4>
-            <p>{ props.campgroundResult.campground.description }</p>
-            <p className="font-italic">
-                Submitted by { props.campgroundResult.campground.author.firstname } { props.campgroundResult.campground.author.lastname }
-                <br/><span className="text-muted">Created at: { props.campgroundResult.campground.created } </span>
+            <h4 className="mt-4 text-monospace font-weight-bold "><a href="#">{ props.campgroundResult.campground.name }</a></h4>
+            <p className="font-weight-light mt-3" >{ props.campgroundResult.campground.description }</p>
+            <p className="font-italic" >
+                Submitted by  
+                <a onClick={()=> history.push(`/user/${props.campgroundResult.campground.author.id}`)} className="ml-2" > 
+                  { props.campgroundResult.campground.author.firstname } { props.campgroundResult.campground.author.lastname }
+                </a>
+                <br/><span className="text-muted">Created: <Moment format="DD-MM-YYYY \a\t hh:mm">{ props.campgroundResult.campground.created }</Moment> </span>
             </p>
             {
               owner === true && (
                 <>
-                  <Link to={`/campgrounds/${ props.campgroundResult.campground._id }/edit`}>
-                  <div className="btn btn-warning">Edit</div>
-                  </Link>
-                  <form onSubmit={ deleteCampgroud }>
-                      <div className="delete-form">
-                        <button className="btn btn-danger" type="submit">Delete</button>
-                      </div>
-                  </form>
+                <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+                  <DropdownToggle caret>
+                  <i className="fas fa-cog"></i>
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={ editCampground } ><i className="fas fa-edit"></i> Edit</DropdownItem>
+                    <DropdownItem onClick={ deleteCampgroud } ><i className="fas fa-trash"></i> Delete</DropdownItem>
+                  </DropdownMenu>
+                </ButtonDropdown>
                 </>                
               )
-            }            
+            }
         </div>
     </div> 
   )

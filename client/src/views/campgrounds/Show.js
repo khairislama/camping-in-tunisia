@@ -32,11 +32,11 @@ export default function Show() {
     <div className="container">
         <div className="row">
             <div className="col-md-3" >
-                <p className="lead">Tunisia-camping</p>
+                <p className="lead">TUNISIA-CAMPING</p>
                 <div className="list-group">
-                    <li className="list-group-item active">Info 1</li>
-                    <li className="list-group-item">Info 2</li>
-                    <li className="list-group-item">Info 3</li>
+                    <li className="list-group-item active">INFO 1</li>
+                    <li className="list-group-item">INFO 2</li>
+                    <li className="list-group-item">FORUM</li>
                 </div>
                 {renderedUser}
             </div>
