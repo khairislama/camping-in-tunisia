@@ -3,11 +3,8 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router';
 import AuthConext from '../context/AuthContext'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 function UserDropdown() {
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [show, setShow] = useState(false);
   const {getLoggedIn} = useContext(AuthConext);
   const {loggedIn} = useContext(AuthConext);
@@ -30,7 +27,6 @@ function UserDropdown() {
       <DropdownToggle
         tag="span"
         data-toggle="dropdown"
-        aria-expanded={dropdownOpen}
         style={{color:"white"}}
       >
         <img 
@@ -38,6 +34,7 @@ function UserDropdown() {
           id="user-image" 
           className="rounded-circle mr-2"             
           style={{width:"28px", height:"28px"}}
+          alt="user"
         /> 
         {loggedIn.userInfo.firstname} {loggedIn.userInfo.lastname}
       </DropdownToggle>

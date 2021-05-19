@@ -11,8 +11,20 @@ const commentSchema = new mongoose.Schema({
         lastname: String,
         userImage: String
     },
-    likes: {type: String, default: "0"},
-    dislikes: {type: String, default: "0"},
+    nLikes: {type: Number, default: 0},
+    nDislikes: {type: Number, default: 0},
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    dislikes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     created: {type: Date, default: Date.now}
 });
 module.exports = mongoose.model("Comment", commentSchema);

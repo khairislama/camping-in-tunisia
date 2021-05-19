@@ -93,3 +93,69 @@ module.exports.isOwner = async (req, res) =>{
         res.json(false);
     }
 }
+
+module.exports.likeComment = async (req, res) =>{
+    try {
+        const token = req.cookies.token;
+        jwt.verify(token, process.env.JWT_SECRET, (err, user)=>{
+            req.user = user;
+        })
+        const userInfo = await USER.findOne({_id: req.user.id});
+        await COMMENT.findById(req.params.commentID, (err, comment)=>{
+            if (err) return res.status(400).json({
+                                success: false,
+                                error: err
+                            })
+            const alreadyLiked = comment.likes.indexOf(userInfo._id);
+            if (alreadyLiked > -1) {
+                comment.likes.splice(alreadyLiked, 1);
+                comment.nLikes --
+            }else{
+                comment.likes.push(userInfo);
+                comment.nLikes ++
+            }
+            comment.save()
+        });
+        return res.status(200).json({
+            success: true
+        })
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            error: err
+        })
+    }
+}
+
+module.exports.dislikeComment = async (req, res) =>{
+    try {
+        const token = req.cookies.token;
+        jwt.verify(token, process.env.JWT_SECRET, (err, user)=>{
+            req.user = user;
+        })
+        const userInfo = await USER.findOne({_id: req.user.id});
+        await COMMENT.findById(req.params.commentID, (err, comment)=>{
+            if (err) return res.status(400).json({
+                                success: false,
+                                error: err
+                            })
+            const alreadydisliked = comment.dislikes.indexOf(userInfo._id);
+            if (alreadydisliked > -1) {
+                comment.dislikes.splice(alreadydisliked, 1);
+                comment.nDislikes --
+            }else{
+                comment.dislikes.push(userInfo);
+                comment.nDislikes ++
+            }
+            comment.save()
+        });
+        return res.status(200).json({
+            success: true
+        })
+    } catch(err) {
+        return res.status(400).json({
+            success: false,
+            error: err
+        })
+    }
+}

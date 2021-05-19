@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import '../../assets/stylesheets/campgroundCard.css'
-import AuthConext from '../../context/AuthContext';
 
 export default function CampgroundCard(props) {
   
@@ -11,7 +10,7 @@ export default function CampgroundCard(props) {
   const history = useHistory();
   
   function searchBookmark(){
-    if (props.userBookmarks == []) return null;
+    if (props.userBookmarks === []) return null;
     const alreadyBookmarked = props.userBookmarks.includes(props.campground._id);
         if (alreadyBookmarked) 
           setBookmarked(true);
@@ -19,7 +18,7 @@ export default function CampgroundCard(props) {
 
   useEffect(()=>{
     searchBookmark()
-  }, [props.userBookmarks])
+  }, [props])
 
   function showCampground(){
     history.push(`/campgrounds/${props.campground._id}`)

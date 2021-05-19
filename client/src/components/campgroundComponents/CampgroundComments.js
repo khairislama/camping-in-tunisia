@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../../assets/stylesheets/campgroundComments.css'
-import AuthConext from '../../context/AuthContext';
 import CommentBlock from './CommentBlock';
 
 function CampgroundComments(props) {

@@ -1,4 +1,5 @@
 const CAMPGROUND        = require("../models/campground.model");
+const COMMENT           = require("../models/comment.model");
 const USER              =require("../models/user.model");
 const jwt               = require("jsonwebtoken");
 
@@ -92,6 +93,10 @@ module.exports.editCampground = async (req, res) => {
 
 module.exports.deleteCampground = async (req, res) => {
     try {
+        const campground = await CAMPGROUND.findById(req.params.campgroundID)
+        campground.comments.forEach(commentID=>{
+            COMMENT.findByIdAndRemove(commentID)
+        })
         await CAMPGROUND.findByIdAndRemove(req.params.campgroundID)
         return res.status(200).json({
             success: true,
