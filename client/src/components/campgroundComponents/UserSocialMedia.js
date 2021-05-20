@@ -3,9 +3,21 @@ import React from 'react'
 export default function UserSocialMedia({user}) {
   return (
     <div>
-      <a href="#"><i className="fab fa-twitter userCampgroundA mr-3"></i></a>
-        <a href="#"><i className="fab fa-linkedin userCampgroundA mr-3"></i></a>
-        <a href="#"><i className="fab fa-facebook userCampgroundA"></i></a>
+      { user.facebook && (
+          <a href={`https://www.facebook.com/${user.facebook}/`} >
+              <i class="fab fa-facebook"></i>
+          </a>
+      ) }
+      { user.instagram && (
+          <a href={`https://www.instagram.com/${user.instagram}/`} >
+              <i class="fab fa-instagram"></i>
+          </a>
+      ) }
+      { user.linkedIn && (
+          <a href={`https://www.linkedin.com/in/${user.linkedIn}/`} >
+              <i class="fab fa-linkedin"></i>
+          </a>
+      ) }
     </div>
   )
 }

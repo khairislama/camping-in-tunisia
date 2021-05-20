@@ -6,17 +6,17 @@ export default function LeftInfos({ userInfo }) {
     <div className="col-md-4">
         <div className="profile-work">
             <p>user info</p>
-            <a href="">{userInfo.surname}</a><br/>
-            <a href=""><Moment format="DD-MM-YYYY">{ userInfo.created }</Moment></a><br/>
+            <a>{userInfo.surname}</a><br/>
+            <a><Moment format="DD-MM-YYYY">{ userInfo.created }</Moment></a><br/>
             { userInfo.age > 15 && <><a href=""> { userInfo.age } </a><br/></> }
-            <a href="">{userInfo.from}</a><br/>
-            <a href="">{userInfo.adresse}</a><br/>
-            <a href="">{userInfo.situation}</a><br/>
+            <a>{userInfo.from}</a><br/>
+            <a>{userInfo.adresse}</a><br/>
+            <a>{userInfo.situation}</a><br/>
             <p>Activities</p>
-            <a href="">{userInfo.nblogs} blogs</a><br/>
-            <a href="">{userInfo.nCampgrounds} campgrounds</a><br/>
-            <a href="">{userInfo.ncomments} comments</a><br/>
-            <a href="">{userInfo.nlikes} likes</a><br/>
+            <a>{userInfo.nblogs} blogs</a><br/>
+            <a>{userInfo.nCampgrounds} campgrounds</a><br/>
+            <a>{userInfo.ncomments} comments</a><br/>
+            <a>{userInfo.nlikes} likes</a><br/>
         </div>
     </div>
   )

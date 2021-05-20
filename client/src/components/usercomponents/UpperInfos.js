@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import AuthConext from '../../context/AuthContext'
+import NavigationTab from './NavigationTab'
 
 export default function UpperInfos({ userInfo }) {
     const {loggedIn} = useContext(AuthConext)
@@ -23,31 +24,7 @@ export default function UpperInfos({ userInfo }) {
                                 <i className="fas fa-star"></i>
                                 </span> ( {userInfo.nratings} users )
                             </p>
-                    <ul className="nav nav-tabs" id="myTab" role="tablist">
-                        <li className="nav-item">
-                            <a className="nav-link active" 
-                            id="home-tab" data-toggle="tab" 
-                            href="#home" role="tab" aria-controls="home" 
-                            aria-selected="true">About</a>
-                        </li>
-                        <li className="nav-item"> 
-                            <a className="nav-link" 
-                            id="profile-tab" data-toggle="tab" 
-                            href="#profile" role="tab" 
-                            aria-controls="profile" aria-selected="false">Timeline</a>
-                        </li>
-                        <li className="nav-item"> 
-                            <a className="nav-link" 
-                            id="profile-tab" data-toggle="tab" 
-                            href="#followers" role="tab" 
-                            aria-controls="followers" aria-selected="false">{userInfo.followers.length} followers</a>
-                        </li>
-                        <li className="nav-item"> 
-                            <a className="nav-link" id="profile-tab" 
-                            data-toggle="tab" href="#following" role="tab" 
-                            aria-controls="following" aria-selected="false">{userInfo.following.length} following</a>
-                        </li>
-                    </ul>
+                    <NavigationTab userInfo={userInfo} />
                 </div>
             </div>
             {

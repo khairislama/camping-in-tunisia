@@ -33,7 +33,7 @@ function UserCampground({author}) {
             </h4>
                 <p className="userCampgroundTitle"> { userInfo.user.surname } </p>
                 <p> { userInfo.user.profession } </p>
-                <UserSocialMedia userinfo={userInfo.user} />
+                <UserSocialMedia user={userInfo.user} />
                 <p><button className="userCampgroundButton mt-3">Contact</button></p>
         </div> 
     ): null

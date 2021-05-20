@@ -6,6 +6,7 @@ import '../../assets/stylesheets/profileShow.css'
 import AuthConext from '../../context/AuthContext';
 import LeftInfos from '../../components/usercomponents/LeftInfos'
 import UpperInfos from '../../components/usercomponents/UpperInfos'
+import MainInfosCard from '../../components/usercomponents/MainInfosCard'
 
 export default function Show() {
     const [userInfo, setUserInfo] = useState();
@@ -28,61 +29,7 @@ export default function Show() {
             <UpperInfos userInfo={userInfo} />
             <div className="row">
                 <LeftInfos userInfo={userInfo} />
-                <div className="col-md-8">
-                    <div className="tab-content profile-tab" id="myTabContent">
-                        <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Name</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>{userInfo.firstname} {userInfo.lastname.toUpperCase()}</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Email</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>{userInfo.username}</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Last activity</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>To complete later</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Phone</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p> {userInfo.phoneNumber} </p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Profession</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p> {userInfo.profession}  </p>
-                                        </div>
-                                    </div>
-                        </div>
-                        <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <p>timeline tab</p>
-                        </div>
-                        <div className="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-                            <p>followers tab</p>
-                        </div>
-                        <div className="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-                            <p>following tab</p>
-                        </div>
-                    </div>
-                </div>
+                <MainInfosCard userInfo={userInfo} />
             </div>
         </>
     ): null
