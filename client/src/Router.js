@@ -6,6 +6,7 @@ import AllCampgrounds       from './views/campgrounds/AllCampgrounds'
 import ShowCampground       from './views/campgrounds/Show'
 import FormAddCampground    from './views/campgrounds/FormAdd'
 import FormEditCampground   from './views/campgrounds/FormEdit'
+import Bookmarks            from './views/campgrounds/Bookmarks'
 import AllProducts          from './views/products/AllProducts'
 import ShowProducts         from './views/products/Show'
 import ShowUser             from './views/users/Show' 
@@ -29,6 +30,11 @@ function Router() {
         <Route path="/campgrounds" exact>
             <Navbar />
             <AllCampgrounds />
+            <Footer />
+        </Route>
+        <Route path="/bookmarks" exact>
+            <Navbar />
+            <Bookmarks />
             <Footer />
         </Route>
         <Route path="/campgrounds/:campgroundID" exact>

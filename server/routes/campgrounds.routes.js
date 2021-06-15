@@ -16,7 +16,7 @@ const upload = multer({storage});
 
 
 router.get("/", campgroundController.findAllCampgrounds);
-router.post("/",middleware.isLoggedIn, upload.single("campgroundImages"), campgroundController.createCampground);
+router.post("/",middleware.isLoggedIn, upload.array('campgroundImages', 6), campgroundController.createCampground);
 router.get("/:campgroundID", campgroundController.findOneCampground);
 router.get("/:campgroundID/edit",middleware.checkCampgroundOwnership, campgroundController.findOneCampground);
 router.put("/:campgroundID",middleware.checkCampgroundOwnership, campgroundController.editCampground);

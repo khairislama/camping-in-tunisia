@@ -5,7 +5,7 @@ import axios from 'axios';
 function FormAdd() {
 
     const [name, setName] = useState("");
-    const [campgroundImages, setCampgroundImages] = useState("");
+    const [campgroundImages, setCampgroundImages] = useState([]);
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const history = useHistory();
@@ -17,7 +17,9 @@ function FormAdd() {
             campgroundData.append("name", name);
             campgroundData.append("description", description);
             campgroundData.append("price", price);
-            campgroundData.append("campgroundImages", campgroundImages);
+            for (let i = 0; i< campgroundImages.length; i++)
+                campgroundData.append(`campgroundImages`, campgroundImages[i]);
+            console.log(campgroundImages)
             await axios.post("http://localhost:3001/api/campgrounds/", campgroundData)
             history.push("/campgrounds");
         }catch (err){
@@ -42,8 +44,8 @@ function FormAdd() {
                         <div className="form-group">
                             <input className="form-control" type="file" 
                                 placeholder="image url" filename="campgroundImages"
-                                onChange={ (e) => setCampgroundImages(e.target.files[0]) }
-                            />
+                                onChange={ (e) => setCampgroundImages(prev => e.target.files) } multiple
+                            />                            
                         </div>
                         <div className="form-group">
                             <input className="form-control" type="text" 

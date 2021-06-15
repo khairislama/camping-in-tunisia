@@ -23,10 +23,13 @@ module.exports.editUser = async (req, res) =>{
             lastname,
             bio,
             from,
+            age,
             adresse,
             situation,
             profession,
-            phoneNumber
+            phoneNumber,
+            facebook,
+            instagram
         } = req.body;
         const userImage = req.file.fieldname + "-" + req.file.originalname;
         const query = {
@@ -34,16 +37,19 @@ module.exports.editUser = async (req, res) =>{
             lastname, 
             bio,
             from,
+            age,
             adresse,
             situation,
             profession,
             phoneNumber, 
             userImage, 
+            facebook,
+            instagram
         }
         let updatedUser = await USER.updateOne({_id : req.params.userID},query);
         return res.status(200).json({
             success: true,
-            user : user
+            user : updatedUser
         })
     }catch(err){
         return res.status(400).json({

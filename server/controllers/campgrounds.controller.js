@@ -45,7 +45,10 @@ module.exports.createCampground = async (req, res) => {
             description,
             price,
         } = req.body;
-        const campgroundImages = req.file.fieldname + "-" + req.file.originalname;
+        const nImages = req.files
+        var campgroundImages = []
+        for (let i = 0 ; i < nImages.length ; i++)            
+            campgroundImages = [...campgroundImages, req.files[i].fieldname + "-" + req.files[i].originalname]
         const campgroundModel = new CAMPGROUND({
             name,
             price, 
@@ -57,6 +60,8 @@ module.exports.createCampground = async (req, res) => {
                 lastname: userInfo.lastname
             }
         })
+        userInfo.nCampgrounds += 1
+        userInfo.save()
         const savedCampgroundModel = await campgroundModel.save();
         return res.status(200).json({
             success: true,
@@ -75,7 +80,6 @@ module.exports.editCampground = async (req, res) => {
         let query = {
             name: req.body.name,
             price: req.body.price,
-            campgroundImages: req.body.campgroundImages,
             description: req.body.description            
         }
         let updatedCampground = await CAMPGROUND.updateOne({_id : req.params.campgroundID},query);
@@ -94,9 +98,14 @@ module.exports.editCampground = async (req, res) => {
 module.exports.deleteCampground = async (req, res) => {
     try {
         const campground = await CAMPGROUND.findById(req.params.campgroundID)
-        campground.comments.forEach(commentID=>{
-            COMMENT.findByIdAndRemove(commentID)
+        campground.comments.forEach(async (commentID)=>{
+            let comment = await COMMENT.findById(commentID)
+            await comment.remove()
         })
+        const authorID = campground.author.id
+        const userInfo = await USER.findById(authorID)
+        userInfo.nCampgrounds -= 1
+        await userInfo.save()
         await CAMPGROUND.findByIdAndRemove(req.params.campgroundID)
         return res.status(200).json({
             success: true,

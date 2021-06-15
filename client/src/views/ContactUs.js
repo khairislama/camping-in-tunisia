@@ -30,9 +30,12 @@ export default function ContactUs() {
                         />
                         <label for="country">Country</label>
                         <select id="country" name="country" className="contactUsInput">
-                            <option value="australia">Australia</option>
-                            <option value="canada">Canada</option>
-                            <option value="usa">USA</option>
+                            <option value="australia">Sousse</option>
+                            <option value="canada">Monastir</option>
+                            <option value="usa">Nfidha</option>
+                            <option value="usa">Tunis</option>
+                            <option value="usa">Bizert</option>
+                            <option value="usa">Sfax</option>
                         </select>
                         <label for="subject">Subject</label>
                         <textarea id="subject" name="subject" className="contactUsInput"

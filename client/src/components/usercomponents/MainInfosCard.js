@@ -47,17 +47,17 @@ export default function MainInfosCard({ userInfo }) {
                         </div>
                         <div className="row">
                             { userInfo.facebook && (
-                                <a href={`https://www.facebook.com/${userInfo.facebook}/`} >
-                                    <i class="fab fa-facebook"></i>
+                                <a href={userInfo.facebook} target="_blank" className="col-md-3" >
+                                    <i class="fab fa-facebook fa-5x"></i>
                                 </a>
                             ) }
                             { userInfo.instagram && (
-                                <a href={`https://www.instagram.com/${userInfo.instagram}/`} >
-                                    <i class="fab fa-instagram"></i>
+                                <a href={userInfo.instagram} target="_blank" className="col-md-3" >
+                                    <i class="fab fa-instagram fa-5x"></i>
                                 </a>
                             ) }
                             { userInfo.linkedIn && (
-                                <a href={`https://www.linkedin.com/in/${userInfo.linkedIn}/`} >
+                                <a href={userInfo.linkedIn} target="_blank" className="col-md-3" >
                                     <i class="fab fa-linkedin"></i>
                                 </a>
                             ) }

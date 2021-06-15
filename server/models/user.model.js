@@ -13,10 +13,10 @@ const userSchema = new mongoose.Schema({
     rating: {type: String, default: "0"},
     situation: {type: String, default: "Signle"},
     nratings: {type: String, default: "0"},
-    nCampgrounds: {type: String, default: "0"},
-    nblogs: {type: String, default: "0"},
-    nlikes: {type: String, default: "0"},
-    ncomments: {type: String, default: "0"},
+    nCampgrounds: {type: Number, default: 0},
+    nblogs: {type: Number, default: 0},
+    nlikes: {type: Number, default: 0},
+    ncomments: {type: Number, default: 0},
     bookmarks: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-import CampgroundCard from '../../components/campgroundComponents/CampgroundCard'
+import CampgroundCardBookmard from '../../components/campgroundComponents/CampgroundCardBookmark'
 import Header from '../../components/Header'
-import CampgroundFilter from '../../components/campgroundComponents/CampgroundFilter'
 import AuthConext from '../../context/AuthContext'
 
-export default function AllCampgrounds() {
-
-    const [bookmarked, setBookmarked] = useState(false);
+export default function Bookmarks() {
     const [campgrounds, setCampgrounds] = useState();
     const [userBookmarks, setUserBookmarks] = useState([]);
     const {loggedIn} = useContext(AuthConext);
@@ -15,7 +12,7 @@ export default function AllCampgrounds() {
     async function getBookmarks(){
         if (loggedIn == undefined) return null;
         try{
-          const result = await axios.get(`http://localhost:3001/api/users/${loggedIn?.userInfo?.id}/getBookmarks`);
+          const result = await axios.get(`http://localhost:3001/api/users/${loggedIn?.userInfo?.id}/getbookmarks`);
           setUserBookmarks(result.data.bookmarks)
         }catch(err){
             console.error(err);            
@@ -37,7 +34,7 @@ export default function AllCampgrounds() {
 
     let renderedCampgrounds = campgrounds !== null && campgrounds !== undefined ? (
         campgrounds.map((campground, index) =>
-            <CampgroundCard key={ campground._id } campground={ campground } userBookmarks={ userBookmarks } userID={ loggedIn?.userInfo?.id } /> 
+            <CampgroundCardBookmard key={ campground._id } campground={ campground } userBookmarks={ userBookmarks } userID={ loggedIn?.userInfo?.id } />
         )
     ): null
     return (
@@ -49,8 +46,15 @@ export default function AllCampgrounds() {
                 </div>
             </div>
             <div className="container">
-                <div className="row text-center" style={{ display: "flex", flexWrap: "wrap" }}>                    
-                    { renderedCampgrounds }
+                <div className="row text-center" style={{ display: "flex", flexWrap: "wrap" }}>
+                { userBookmarks === [] && (
+                        <div>
+                            <p className="text-center font-weight-bold">
+                                No Bookmarks yet
+                            </p>
+                        </div>
+                    ) }
+                { userBookmarks!== [] && renderedCampgrounds }
                 </div>
             </div>
         </div>

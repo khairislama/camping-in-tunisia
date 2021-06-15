@@ -20,6 +20,8 @@ module.exports.createComment = async (req, res) => {
                 userImage: userInfo.userImage
             }
         });
+        userInfo.ncomments += 1
+        userInfo.save()
         const savedComment = await commentModel.save();
         const savedCampgroundModel = await CAMPGROUND.findById(req.params.campgroundID, (err, campground)=>{
             if (err) return res.status(400).json({
@@ -62,7 +64,12 @@ module.exports.editComment = async (req, res) =>{
 
 module.exports.deleteComment = async (req, res) =>{
     try {
-        Comment.findByIdAndRemove(req.params.comment_id, (err)=>{
+        const comment = await COMMENT.findById(req.params.commentID)
+        const authorID = comment.author.id
+        const userInfo = await USER.findById(authorID)
+        userInfo.ncomments -= 1
+        userInfo.save()
+        await COMMENT.findByIdAndRemove(req.params.comment_id, (err)=>{
             if (err) return res.status(400).json({
                 success: false,
                 error: err

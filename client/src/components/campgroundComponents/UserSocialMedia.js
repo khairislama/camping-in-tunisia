@@ -4,18 +4,18 @@ export default function UserSocialMedia({user}) {
   return (
     <div>
       { user.facebook && (
-          <a href={`https://www.facebook.com/${user.facebook}/`} >
-              <i class="fab fa-facebook"></i>
+          <a href={`${user.facebook}`} target="_blank" >
+              <i class="fab fa-facebook fa-3x"></i>
           </a>
       ) }
       { user.instagram && (
-          <a href={`https://www.instagram.com/${user.instagram}/`} >
-              <i class="fab fa-instagram"></i>
+          <a href={`${user.instagram}`} target="_blank" >
+              <i class="fab fa-instagram fa-3x"></i>
           </a>
       ) }
       { user.linkedIn && (
-          <a href={`https://www.linkedin.com/in/${user.linkedIn}/`} >
-              <i class="fab fa-linkedin"></i>
+          <a href={`${user.linkedIn}/`} target="_blank" >
+              <i class="fab fa-linkedin fa-3x"></i>
           </a>
       ) }
     </div>

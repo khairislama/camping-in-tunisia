@@ -38,34 +38,43 @@ function CampgroundSlider(props) {
     <div className="campgraoundSlider">
         <div className="campgroundSliderContainer">
         <div className="campgroundSliderMySlides">
-            <div className="numbertext">1 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
+            <div className="numbertext">1 / { props.campground.campgroundImages.length } </div>
+            <img src={`/uploads/campgrounds/${props.campground.campgroundImages[0]}`} style={{ width: "100%" }}/>
         </div>
+        { props.campground.campgroundImages.length > 1 && (
+            <div className="campgroundSliderMySlides">
+                <div className="numbertext">2 / { props.campground.campgroundImages.length } </div>
+                    <img src={`/uploads/campgrounds/${props.campground.campgroundImages[1]}`} style={{ width: "100%" }}/>
+            </div>
+        ) }
 
-        <div className="campgroundSliderMySlides">
-            <div className="numbertext">2 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
-        </div>
+        { props.campground.campgroundImages.length > 2 && (
+            <div className="campgroundSliderMySlides">
+                <div className="numbertext">3 / { props.campground.campgroundImages.length } </div>
+                    <img src={`/uploads/campgrounds/${props.campground.campgroundImages[2]}`} style={{ width: "100%" }}/>
+            </div>
+        ) }
+        
+        { props.campground.campgroundImages.length > 3 && (
+            <div className="campgroundSliderMySlides">
+                <div className="numbertext">4 / { props.campground.campgroundImages.length } </div>
+                    <img src={`/uploads/campgrounds/${props.campground.campgroundImages[3]}`} style={{ width: "100%" }}/>
+            </div>
+        ) }
 
-        <div className="campgroundSliderMySlides">
-            <div className="numbertext">3 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
-        </div>
-            
-        <div className="campgroundSliderMySlides">
-            <div className="numbertext">4 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
-        </div>
+        { props.campground.campgroundImages.length > 4 && (
+            <div className="campgroundSliderMySlides">
+                <div className="numbertext">5 / { props.campground.campgroundImages.length } </div>
+                    <img src={`/uploads/campgrounds/${props.campground.campgroundImages[4]}`} style={{ width: "100%" }}/>
+            </div>
+        ) }
 
-        <div className="campgroundSliderMySlides">
-            <div className="numbertext">5 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
-        </div>
-            
-        <div className="campgroundSliderMySlides">
-            <div className="numbertext">6 / 6</div>
-            <img src={IMG_URL} style={{ width: "100%" }}/>
-        </div>
+        { props.campground.campgroundImages.length > 5 && (
+            <div className="campgroundSliderMySlides">
+                <div className="numbertext">6 / 6</div>
+                    <img src={`/uploads/campgrounds/${props.campground.campgroundImages[5]}`} style={{ width: "100%" }}/>
+            </div>
+        ) }
             
         <a className="campgroundSliderPrev" onClick={()=> setSlideIndex(slideIndex-1)}>❮</a>
         <a className="campgroundSliderNext" onClick={()=> setSlideIndex(slideIndex+1)}>❯</a>
@@ -76,29 +85,39 @@ function CampgroundSlider(props) {
 
         <div className="campgroundSliderRow">
             <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
+            <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[0]}`} style={{ width: "100%" }} 
                 onClick={()=> setSlideIndex(1)} alt="The Woods"/>
             </div>
-            <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
-                onClick={()=> setSlideIndex(2)} alt="Cinque Terre"/>
-            </div>
-            <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
-                onClick={()=> setSlideIndex(3)} alt="Mountains and fjords"/>
-            </div>
-            <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
-                onClick={()=> setSlideIndex(4)} alt="Northern Lights"/>
-            </div>
-            <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
-                onClick={()=> setSlideIndex(5)} alt="Nature and sunrise"/>
-            </div>    
-            <div className="campgroundSliderColumn">
-            <img className="campgroundSliderDemo campgroundSliderCursor" src={IMG_URL} style={{ width: "100%" }} 
-                onClick={()=> setSlideIndex(6)} alt="Snowy Mountains"/>
-            </div>
+            { props.campground.campgroundImages.length > 1 && (
+                <div className="campgroundSliderColumn">
+                <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[1]}`} style={{ width: "100%" }} 
+                    onClick={()=> setSlideIndex(2)} alt="Cinque Terre"/>
+                </div>
+            ) }            
+            { props.campground.campgroundImages.length > 2 && (
+                <div className="campgroundSliderColumn">
+                <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[2]}`} style={{ width: "100%" }} 
+                    onClick={()=> setSlideIndex(3)} alt="Mountains and fjords"/>
+                </div>
+            ) }
+            { props.campground.campgroundImages.length > 3 && (
+                <div className="campgroundSliderColumn">
+                <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[3]}`} style={{ width: "100%" }} 
+                    onClick={()=> setSlideIndex(4)} alt="Northern Lights"/>
+                </div>
+            ) }
+            { props.campground.campgroundImages.length > 4 && (
+                <div className="campgroundSliderColumn">
+                <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[4]}`} style={{ width: "100%" }} 
+                    onClick={()=> setSlideIndex(5)} alt="Nature and sunrise"/>
+                </div>  
+            ) }
+            { props.campground.campgroundImages.length > 5 && (
+               <div className="campgroundSliderColumn">
+               <img className="campgroundSliderDemo campgroundSliderCursor" src={`/uploads/campgrounds/${props.campground.campgroundImages[5]}`} style={{ width: "100%" }} 
+                   onClick={()=> setSlideIndex(6)} alt="Snowy Mountains"/>
+               </div>
+            ) }            
         </div>
     </div>
     </div>

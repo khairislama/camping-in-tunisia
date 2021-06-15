@@ -30,7 +30,7 @@ export default function UpperInfos({ userInfo }) {
             {
                 loggedIn?.userInfo?.id === userInfo?._id && (
                     <div className="col-md-2">
-                        <a className="border profile-edit-btn" href="/users/<%= user._id %>/edit">
+                        <a className="border profile-edit-btn" href={`/user/${userInfo._id}/edit`} >
                             <i className="fas fa-edit mr-2 mt-5"></i> Edit Profile
                         </a>
                     </div>

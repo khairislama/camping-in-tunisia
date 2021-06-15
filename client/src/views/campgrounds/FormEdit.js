@@ -6,7 +6,6 @@ function FormEdit() {
     let match = useRouteMatch();
     const [campground, setCampground] = useState();
     const [name, setName] = useState("");
-    const [campgroundImages, setCampgroundImages] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [owner, setOwner] = useState(undefined);
@@ -23,7 +22,6 @@ function FormEdit() {
         );
         setCampground(result.data.campground);
         setName(result.data.campground.name);
-        setCampgroundImages(result.data.campground.campgroundImages);
         setDescription(result.data.campground.description);
         setPrice(result.data.campground.price);
         getCampgroundOwner();
@@ -35,7 +33,6 @@ function FormEdit() {
             const campgroundData = {
                 name,
                 description,
-                campgroundImages,
                 price
             };
             await axios.put(`http://localhost:3001/api/campgrounds/${match.params.campgroundID}`, campgroundData);
@@ -54,12 +51,6 @@ function FormEdit() {
                         <input className="form-control" type="text" 
                             onChange={ (e) => setName(e.target.value) }
                             value={name} name="name"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input className="form-control" type="text" 
-                            onChange={ (e) => setCampgroundImages(e.target.value) }
-                            value={campgroundImages} name="campgroundImages"
                         />
                     </div>
                     <div className="form-group">

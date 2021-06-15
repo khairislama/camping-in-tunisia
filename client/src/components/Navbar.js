@@ -29,7 +29,7 @@ function Navbar() {
               <a className="nav-link" href="/campgrounds">FORUM</a>
             </li>
             <li className="nav-item active mr-3">
-              <a className="nav-link" href="/blogs">SHOP</a>
+              <a className="nav-link" href="/products">SHOP</a>
             </li>
             <li className="nav-item active">
               <a className="nav-link" href="/products">COMMUNITY</a>
